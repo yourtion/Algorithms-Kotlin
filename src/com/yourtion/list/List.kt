@@ -15,7 +15,7 @@ class ListElmt(val data: Any, var next: ListElmt? = null)
  */
 class List {
     var size = 0
-    var match: Function<Int>? = null
+    var match: Function<Boolean>? = null
     var head: ListElmt? = null
     var tail: ListElmt? = null
 
@@ -61,11 +61,13 @@ class List {
      * @return 被删除元素
      */
     fun remove_next(element: ListElmt? = null): ListElmt? {
+        // 禁止删除空链表的数据
         if (size == 0) return null
 
         var old_element: ListElmt? = null
 
         if (element == null) {
+            // 处理删除头部元素
             old_element = head
             head = head?.next
 
@@ -73,6 +75,7 @@ class List {
                 tail = null
             }
         } else {
+            // 处理其他情况
             if (element.next == null) return null
 
             old_element = element.next

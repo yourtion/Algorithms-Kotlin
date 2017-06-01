@@ -14,7 +14,7 @@ class DListElmt(val data:Any, var prev: DListElmt? = null, var next: DListElmt? 
  */
 class DList {
     var size = 0
-    var match: Function<Int>? = null
+    var match: Function<Boolean>? = null
     var head: DListElmt? = null
     var tail: DListElmt? = null
 
@@ -27,18 +27,18 @@ class DList {
      * @return 新插入元素
      */
     fun insert_next(data: Any, element: DListElmt? = null): DListElmt? {
-        /// 除非是空双向链表，否则不允许 element 为 NULL
+        // 除非是空双向链表，否则不允许 element 为 NULL
         if (element == null && size != 0) return null
 
         val new_element = DListElmt(data)
 
         if (size == 0) {
-            /// 处理空双向链表
+            // 处理空双向链表
             head = new_element
             tail = new_element
 
         } else {
-            /// 处理非空双向链表
+            // 处理非空双向链表
             new_element.next = element!!.next
             new_element.prev = element
 
@@ -65,18 +65,18 @@ class DList {
      * @return 新插入元素
      */
     fun insert_prev(data: Any, element: DListElmt? = null): DListElmt? {
-        /// 除非是空双向链表，否则不允许 element 为 NULL
+        // 除非是空双向链表，否则不允许 element 为 NULL
         if (element == null && size != 0) return null
 
         val new_element = DListElmt(data)
 
         if (size == 0) {
-            /// 处理空双向链表
+            // 处理空双向链表
             head = new_element
             tail = new_element
 
         } else {
-            /// 处理非空双向链表
+            // 处理非空双向链表
             new_element.next = element
             new_element.prev = element!!.prev
 
@@ -102,11 +102,13 @@ class DList {
      * @return 被删除元素
      */
     fun remove(element: DListElmt): DListElmt? {
+        // 禁止删除 element 为空或空链表的数据
         if (size == 0) return null
 
         val old_element = element
 
         if (is_head(element)) {
+            // 处理删除头部元素
             head = element.next
             if (head == null) {
                 tail = null
@@ -114,6 +116,7 @@ class DList {
                 element.next!!.prev = null
             }
         } else {
+            // 处理删除非头部元素
             element.prev!!.next = element.next
 
             if (element.next == null) {

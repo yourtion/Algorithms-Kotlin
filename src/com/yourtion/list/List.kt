@@ -20,7 +20,7 @@ class List {
     var tail: ListElmt? = null
 
     /**
-     * 在 element 后面插入一个新元素
+     * 在 [element] 后面插入一个新元素
      *
      * @param data 元素数据
      * @param element 新元素，如果为 NULL 则插入头部
@@ -54,7 +54,7 @@ class List {
     }
 
     /**
-     * 移除 element 后的元素
+     * 移除 [element] 后的元素
      *
      * @param element 待移除元素前面的元素，如果为 NULL 则移除头部
      *
@@ -89,14 +89,14 @@ class List {
     }
 
     /**
-     * 判断元素 element 是否为头节点
+     * 判断元素 [element] 是否为头节点
      */
     fun is_head(element: ListElmt): Boolean {
         return element === head
     }
 
     /**
-     * 判断元素 element 是否为尾节点
+     * 判断元素 [element] 是否为尾节点
      */
     fun is_tail(element: ListElmt): Boolean {
         return element === tail

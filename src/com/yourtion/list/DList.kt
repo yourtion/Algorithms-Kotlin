@@ -7,14 +7,13 @@ package com.yourtion.list
 /**
  * 双向链表节点
  */
-class DListElmt(val data:Any, var prev: DListElmt? = null, var next: DListElmt? = null)
+class DListElmt(val data: Any, var prev: DListElmt? = null, var next: DListElmt? = null)
 
 /**
  * 双向链表
  */
 class DList {
     var size = 0
-    var match: Function<Boolean>? = null
     var head: DListElmt? = null
     var tail: DListElmt? = null
 

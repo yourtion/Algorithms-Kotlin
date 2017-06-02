@@ -85,5 +85,5 @@ class CListTest {
         assertEquals(element!!.data, 11)
 
     }
-    
+
 }

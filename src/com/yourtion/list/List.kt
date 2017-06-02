@@ -13,9 +13,8 @@ class ListElmt(val data: Any, var next: ListElmt? = null)
 /**
  * 链表
  */
-class List {
+open class List {
     var size = 0
-    var match: Function<Boolean>? = null
     var head: ListElmt? = null
     var tail: ListElmt? = null
 

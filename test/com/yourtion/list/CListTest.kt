@@ -38,4 +38,52 @@ class CListTest {
         assertTrue(list.is_head(a!!))
     }
 
+    fun CList.print() {
+        if (size == 0) return println("-> List is Empty")
+        var str = "-> List size: $size \n-"
+        var i = size
+        var element = head
+        while (i > 0) {
+            str += "-> [" + element!!.data.toString() + "] "
+            element = element.next
+            i--
+        }
+        str += "\n"
+        print(str)
+    }
+
+    @Test
+    fun example() {
+        val list = CList()
+        var element = list.head
+
+        for (i in IntRange(1, 10)) {
+            element = list.insert_next(i, element)
+        }
+        list.print()
+        assertEquals(list.size, 10)
+
+        element = list.head
+        for (i in IntRange(1, 10)) {
+            element = element!!.next
+        }
+        println("Removing an element after the one containing " + element!!.data)
+        assertEquals(element.data, 1)
+        element = list.remove_next(element)
+        list.print()
+        assertEquals(element!!.data, 2)
+
+
+        element = list.head
+        for (i in IntRange(1, 15)) {
+            element = element!!.next
+        }
+        println("Circling and inserting 11 after the element containing " + element!!.data)
+        assertEquals(element.data, 8)
+        element = list.insert_next(11, element)
+        list.print()
+        assertEquals(element!!.data, 11)
+
+    }
+    
 }

@@ -122,4 +122,98 @@ class SetTest {
         assertEquals(set3.size, 0)
     }
 
+    fun Set.print() {
+        if (size == 0) return println("-> Set is Empty")
+        var str = "-> Set size: $size \n-"
+        var element = head
+        while (element != null) {
+            str += "-> [" + element.data.toString() + "] "
+            element = element.next
+        }
+        str += "\n"
+        print(str)
+    }
+
+    @Test
+    fun example() {
+        val set = Set()
+
+        for (i in IntRange(1, 10).reversed()) {
+            set.insert(i)
+        }
+        set.print()
+        assertEquals(set.size, 10)
+
+        println("Inserting the same members again")
+        for (i in IntRange(1, 10).reversed()) {
+            set.insert(i)
+        }
+        set.print()
+        assertEquals(set.size, 10)
+
+        println("Inserting 200 and 100")
+        set.insert(200)
+        set.insert(100)
+        set.print()
+        assertEquals(set.size, 12)
+
+        println("Removing 100, 5, and 10")
+        set.remove(100)
+        set.remove(5)
+        set.remove(10)
+        set.print()
+        assertEquals(set.size, 9)
+
+        val set1 = Set()
+        val set2 = Set()
+
+        for (i in IntRange(1, 10).reversed()) {
+            set1.insert(i)
+            if (i == 5 || i == 6 || i == 7) {
+                set2.insert(i * 10)
+            } else if (i == 3 || i == 1) {
+                set2.insert(i)
+            }
+        }
+        set1.print()
+        assertEquals(set1.size, 10)
+        set2.print()
+        assertEquals(set2.size, 5)
+
+        println("Determining the union of the two sets")
+        val setu = set1.union(set2)
+        setu.print()
+        assertEquals(setu.size, 13)
+        assertTrue(setu.is_member(50))
+        assertTrue(setu.is_member(1))
+        assertTrue(setu.is_member(4))
+
+        println("Determining the intersection of the two sets")
+        val seti = set1.intersection(set2)
+        seti.print()
+        assertEquals(seti.size, 2)
+        assertTrue(seti.is_member(1))
+        assertTrue(seti.is_member(3))
+
+        println("Determining the difference of the two sets")
+        val setd = set1.difference(set2)
+        setd.print()
+        assertEquals(setd.size, 8)
+        assertTrue(setd.is_member(2))
+        assertTrue(setd.is_member(6))
+        assertTrue(setd.is_member(10))
+
+        println("Testing whether the intersection equals Set 1")
+        assertFalse(seti.is_equal(set1))
+
+        println("Testing whether Set 1 equals itself")
+        assertTrue(set1.is_equal(set1))
+
+        println("Testing whether the intersection is a subset of Set 1")
+        assertTrue(seti.is_subset(set1))
+
+        println("Testing whether Set 2 is a subset of Set 1")
+        assertFalse(set2.is_subset(set1))
+    }
+
 }

@@ -15,7 +15,7 @@ class ChainedHashTable constructor(buckets: Int, hash: (Any) -> Int) {
     val buckets = buckets
     val hash = hash
     var size = 0
-    private val table = Array(buckets, { _ -> List() })
+    internal val table = Array(buckets, { _ -> List() })
 
     fun insert(data: Any): Boolean {
         if (lookup(data)) return false
@@ -28,7 +28,7 @@ class ChainedHashTable constructor(buckets: Int, hash: (Any) -> Int) {
     fun remove(data: Any): Boolean {
         val bk = hash(data) % buckets
         var element = table[bk].head
-        var prev : ListElmt? = null
+        var prev: ListElmt? = null
         while (element != null) {
             if (element.data == data) {
                 table[bk].remove_next(prev)

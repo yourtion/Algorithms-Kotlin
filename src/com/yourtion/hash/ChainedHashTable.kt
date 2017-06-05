@@ -12,11 +12,18 @@ import com.yourtion.list.ListElmt
  */
 class ChainedHashTable constructor(buckets: Int, hash: (Any) -> Int) {
 
+    // 桶数量
     val buckets = buckets
+    // 哈希函数
     val hash = hash
+    // 元素数量
     var size = 0
+    // 哈希表
     internal val table = Array(buckets, { _ -> List() })
 
+    /**
+     * 向链式哈希表中插入一个元素 [data]
+     */
     fun insert(data: Any): Boolean {
         if (lookup(data)) return false
         val bk = hash(data) % buckets
@@ -25,6 +32,9 @@ class ChainedHashTable constructor(buckets: Int, hash: (Any) -> Int) {
         return true
     }
 
+    /**
+     * 从链式哈希表中删除与 [data] 匹配的元素
+     */
     fun remove(data: Any): Boolean {
         val bk = hash(data) % buckets
         var element = table[bk].head
@@ -42,6 +52,9 @@ class ChainedHashTable constructor(buckets: Int, hash: (Any) -> Int) {
         return false
     }
 
+    /**
+     * 判断链式哈希表中查找是否有与 [data] 相匹配的元素
+     */
     fun lookup(data: Any): Boolean {
         val bk = hash(data) % buckets
         var element = table[bk].head

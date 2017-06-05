@@ -39,7 +39,7 @@ class CListTest {
     }
 
     fun CList.print() {
-        if (size == 0) return println("-> List is Empty")
+        if (size == 0) return println("-> CList is Empty")
         var str = "-> List size: $size \n-"
         var i = size
         var element = head

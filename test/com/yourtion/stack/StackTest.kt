@@ -47,4 +47,43 @@ class StackTest {
         assertNull(n)
     }
 
+    fun Stack.print() {
+        if (size == 0) return println("-> Stack is Empty")
+        var str = "-> Stack size: $size \n-"
+        var element = head
+        while (element != null) {
+            str += "-> [" + element.data.toString() + "] "
+            element = element.next
+        }
+        str += "\n"
+        print(str)
+    }
+
+    @Test
+    fun example() {
+        val stack = Stack()
+
+        for (i in IntRange(1, 10).reversed()) {
+            stack.insert_next(i)
+        }
+        stack.print()
+        assertEquals(stack.size, 10)
+
+        println("Pushing 100 and 200")
+        stack.push(100)
+        stack.push(200)
+        stack.print()
+        assertEquals(stack.size, 12)
+
+        println("Peeking at the top element")
+        assertEquals(stack.peek(), 200)
+
+        println("Peeking at an empty stack")
+        for (i in IntRange(1, stack.size)) {
+            stack.pop()
+        }
+        stack.print()
+        assertNull(stack.peek())
+    }
+
 }

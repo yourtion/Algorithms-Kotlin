@@ -3,11 +3,15 @@ package com.yourtion.tree
 /**
  * Created by Yourtion on 06/06/2017.
  */
+
 /**
  * 二叉树
  */
 class BinaryTree constructor(root: BinaryTreeNode? = null) {
 
+    /**
+     * 二叉树节点
+     */
     data class BinaryTreeNode constructor(
             val data: Any,
             var left: BinaryTreeNode? = null,
@@ -16,23 +20,35 @@ class BinaryTree constructor(root: BinaryTreeNode? = null) {
 
     companion object {
 
+        /**
+         * 判断 [node] 所标识结点是否为二叉树中某个分支的结束
+         */
         fun is_eob(node: BinaryTreeNode?): Boolean {
             return node == null
         }
 
+        /**
+         * 判断 [node] 所指定结点是否为二叉树中的叶子结点
+         */
         fun is_leaf(node: BinaryTreeNode): Boolean {
             return node.left == null && node.right == null
         }
 
+        /**
+         * 将 [left] 和 [right] 所指定的两棵二叉树合并为单棵二叉树，根为 [data]
+         */
         fun merge(data: Any, left: BinaryTree, right: BinaryTree): BinaryTree {
             val node = BinaryTreeNode(data, left = left.root, right = right.root)
             return BinaryTree(node)
         }
     }
 
+    // 根节点
     var root: BinaryTreeNode? = root
 
-
+    /**
+     * 在二叉树中插入一个 [node] 所指定结点的左子结点 [data]
+     */
     fun insert_left(data: Any, node: BinaryTreeNode? = null): BinaryTreeNode? {
         val new_node = BinaryTreeNode(data)
         if (node == null) {
@@ -45,6 +61,9 @@ class BinaryTree constructor(root: BinaryTreeNode? = null) {
         return new_node
     }
 
+    /**
+     * 在二叉树中插入一个 [node] 所指定结点的右子结点 [data]
+     */
     fun insert_right(data: Any, node: BinaryTreeNode? = null): BinaryTreeNode? {
         val new_node = BinaryTreeNode(data)
         if (node == null) {
@@ -57,6 +76,9 @@ class BinaryTree constructor(root: BinaryTreeNode? = null) {
         return new_node
     }
 
+    /**
+     * 移除二叉树中 [node] 的左子结点为根的子树
+     */
     fun remove_left(node: BinaryTreeNode? = null) {
         if (node == null) {
             root = null
@@ -65,6 +87,9 @@ class BinaryTree constructor(root: BinaryTreeNode? = null) {
         }
     }
 
+    /**
+     * 移除二叉树中 [node] 的右子结点为根的子树
+     */
     fun remove_right(node: BinaryTreeNode? = null) {
         if (node == null) {
             root = null

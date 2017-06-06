@@ -5,14 +5,15 @@ package com.yourtion.list
  */
 
 /**
- * 循环链表元素
- */
-class CListElmt(val data: Any, var next: CListElmt? = null)
-
-/**
  * 循环链表
  */
 class CList {
+
+    /**
+     * 循环链表元素
+     */
+    class CListElmt(val data: Any, var next: CListElmt? = null)
+
     var size = 0
     var head: CListElmt? = null
 

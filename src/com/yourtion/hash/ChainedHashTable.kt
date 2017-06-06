@@ -1,7 +1,6 @@
 package com.yourtion.hash
 
 import com.yourtion.list.List
-import com.yourtion.list.ListElmt
 
 /**
  * Created by Yourtion on 05/06/2017.
@@ -38,7 +37,7 @@ class ChainedHashTable constructor(buckets: Int, hash: (Any) -> Int) {
     fun remove(data: Any): Boolean {
         val bk = hash(data) % buckets
         var element = table[bk].head
-        var prev: ListElmt? = null
+        var prev: List.ListElmt? = null
         while (element != null) {
             if (element.data == data) {
                 table[bk].remove_next(prev)

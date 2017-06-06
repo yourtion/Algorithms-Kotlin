@@ -1,7 +1,6 @@
 package com.yourtion.set
 
 import com.yourtion.list.List
-import com.yourtion.list.ListElmt
 
 /**
  * Created by Yourtion on 02/06/2017.

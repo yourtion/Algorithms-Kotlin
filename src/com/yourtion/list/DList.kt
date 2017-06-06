@@ -4,15 +4,18 @@ package com.yourtion.list
  * Created by Yourtion on 01/06/2017.
  */
 
-/**
- * 双向链表节点
- */
-class DListElmt(val data: Any, var prev: DListElmt? = null, var next: DListElmt? = null)
+
 
 /**
  * 双向链表
  */
 class DList {
+
+    /**
+     * 双向链表节点
+     */
+    class DListElmt(val data: Any, var prev: DListElmt? = null, var next: DListElmt? = null)
+
     var size = 0
     var head: DListElmt? = null
     var tail: DListElmt? = null

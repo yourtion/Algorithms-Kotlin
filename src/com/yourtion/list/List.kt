@@ -6,14 +6,15 @@ package com.yourtion.list
 
 
 /**
- * 链表元素
- */
-class ListElmt(val data: Any, var next: ListElmt? = null)
-
-/**
  * 链表
  */
 open class List {
+
+    /**
+     * 链表元素
+     */
+    class ListElmt(val data: Any, var next: ListElmt? = null)
+
     var size = 0
     var head: ListElmt? = null
     var tail: ListElmt? = null

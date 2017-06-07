@@ -93,7 +93,8 @@ class AVLTree : BinaryTree {
         } else if (cmpval > 0) {
             node.right = _remove(data, node.right)
         } else if (node.left != null && node.right != null) {
-            node.data = if (compare(node.right!!.left!!.data, node.right!!.right!!.data) < 0) node.right!!.left!!.data else node.right!!.right!!.data
+            val right = node.right
+            node.data = if (right!!.left != null) right.left!!.data else node.data
             node.right = _remove(node.data, node.right)
         } else if (node.left != null) {
             return balance(node.left!!)

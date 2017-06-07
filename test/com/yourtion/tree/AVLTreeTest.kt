@@ -9,7 +9,7 @@ import org.junit.Test
  */
 class AVLTreeTest {
 
-    val comp = { data1: Any, data2: Any -> data1 as Int - data2 as Int }
+    val compare_int = { data1: Any, data2: Any -> data1 as Int - data2 as Int }
 
     @Test
     fun rotate_left() {
@@ -26,7 +26,7 @@ class AVLTreeTest {
         a22.right = a43
         a15.left = x
 
-        val a = AVLTree(comp).rotate_left(a0)
+        val a = AVLTree(compare_int).rotate_left(a0)
         assertEquals(a.data, "22")
         assertEquals((a.left as AVLTree.AvlNode).data, "15")
         assertEquals((a.right as AVLTree.AvlNode).data, "A")
@@ -50,7 +50,7 @@ class AVLTreeTest {
         a22.right = a43
         a43.left = x
 
-        val a = AVLTree(comp).rotate_left_right(a0)
+        val a = AVLTree(compare_int).rotate_left_right(a0)
         assertEquals(a.data, "43")
         assertEquals((a.left as AVLTree.AvlNode).data, "22")
         assertEquals((a.right as AVLTree.AvlNode).data, "A")
@@ -59,7 +59,7 @@ class AVLTreeTest {
         assertEquals((a.right as AVLTree.AvlNode).right!!.data, "75")
     }
 
-    fun verify(list: List, order: Array<Int>) {
+    fun verify_int(list: List, order: Array<Int>) {
         var element = list.head
         for (i in IntRange(0, list.size - 1)) {
             assertEquals(element!!.data, order[i])
@@ -68,7 +68,7 @@ class AVLTreeTest {
     }
 
     fun build_tree(): AVLTree {
-        val tree = AVLTree(comp)
+        val tree = AVLTree(compare_int)
         tree.insert(9)
         tree.insert(8)
         tree.insert(3)
@@ -88,7 +88,7 @@ class AVLTreeTest {
         val tree = build_tree()
         val list = tree.pre_order()
         assertEquals(list.size, 10)
-        verify(list, arrayOf(6, 2, 0, 1, 4, 3, 5, 8, 7, 9))
+        verify_int(list, arrayOf(6, 2, 0, 1, 4, 3, 5, 8, 7, 9))
     }
 
     @Test
@@ -102,6 +102,10 @@ class AVLTreeTest {
         tree.remove(8)
         val list = tree.pre_order()
         assertEquals(list.size, 4)
+        for (i in IntRange(0, 9)) {
+            tree.remove(i)
+        }
+        assertNull(tree.root)
     }
 
     @Test
@@ -115,6 +119,61 @@ class AVLTreeTest {
         assertFalse(tree.lookup(-1))
         tree.remove(0)
         assertFalse(tree.lookup(0))
+    }
+
+    val compare_str = { data1: Any, data2: Any -> (data1 as String).compareTo(data2 as String) }
+
+    fun verify_str(list: List, order: Array<String>) {
+        var element = list.head
+        for (i in IntRange(0, list.size - 1)) {
+            assertEquals(element!!.data, order[i])
+            element = element.next
+        }
+    }
+
+    @Test
+    fun example() {
+        val tree = AVLTree(compare_str)
+        println("Inserting some nodes")
+        tree.insert("tap")
+        tree.insert("tip")
+        tree.insert("top")
+        tree.insert("cat")
+        tree.insert("bat")
+        var list = tree.pre_order()
+        assertEquals(list.size, 5)
+        verify_str(list, arrayOf("tip", "cat", "bat", "tap", "top"))
+
+        println("Removing tip")
+        tree.remove("tip")
+        println("Removing hop")
+        tree.remove("hop")
+        println("Inserting more nodes")
+        tree.insert("hop")
+        tree.insert("dip")
+        tree.insert("tap")
+        tree.insert("top")
+        tree.insert("tip")
+        tree.insert("mom")
+        tree.insert("hat")
+        tree.insert("mop")
+        tree.insert("wax")
+        tree.insert("zoo")
+        list = tree.pre_order()
+        assertEquals(list.size, 12)
+
+        println("Removing hop and wax again")
+        tree.remove("hop")
+        tree.remove("wax")
+        list = tree.pre_order()
+        assertEquals(list.size, 10)
+
+        println("Looking up some nodes")
+        assertTrue(tree.lookup("top"))
+        assertFalse(tree.lookup("hop"))
+        assertFalse(tree.lookup("wax"))
+        assertTrue(tree.lookup("hat"))
+        assertFalse(tree.lookup("xxx"))
     }
 
 }

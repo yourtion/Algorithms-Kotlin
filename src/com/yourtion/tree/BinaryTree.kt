@@ -7,13 +7,13 @@ package com.yourtion.tree
 /**
  * 二叉树
  */
-class BinaryTree constructor(root: BinaryTreeNode? = null) {
+open class BinaryTree constructor(root: BinaryTreeNode? = null) {
 
     /**
      * 二叉树节点
      */
-    data class BinaryTreeNode constructor(
-            val data: Any,
+    open class BinaryTreeNode constructor(
+            var data: Any,
             var left: BinaryTreeNode? = null,
             var right: BinaryTreeNode? = null
     )

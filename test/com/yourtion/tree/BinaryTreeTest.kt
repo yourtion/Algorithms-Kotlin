@@ -1,9 +1,12 @@
 package com.yourtion.tree
 
+import com.yourtion.list.List
+import com.yourtion.tree.TraverseOrder.*
 import org.junit.Assert.*
 import org.junit.Test
 
 /**
+ * BinaryTreeTest
  * Created by Yourtion on 06/06/2017.
  */
 class BinaryTreeTest {
@@ -59,8 +62,8 @@ class BinaryTreeTest {
     fun remove_right() {
         val tree = BinaryTree()
         val a = tree.insert_right("A")
-        val b1 = tree.insert_left("B1", a)
         val b2 = tree.insert_right("B2", a)
+        tree.insert_left("B1", a)
         tree.insert_left("C1", b2)
         tree.insert_right("C2", b2)
         tree.remove_right(b2)
@@ -107,5 +110,109 @@ class BinaryTreeTest {
         assertEquals(tree.root!!.right!!.data, "a1")
         assertEquals(tree.root!!.left!!.left, b1)
         assertEquals(tree.root!!.right!!.right, b2)
+    }
+
+    fun verify(list: List, order: Array<Int>) {
+        var element = list.head
+        for (i in IntRange(0, list.size - 1)) {
+            assertEquals(element!!.data, order[i])
+            element = element.next
+        }
+    }
+
+    fun BinaryTree.insert_int(i: Int) {
+        var node = root
+        var prev: BinaryTree.BinaryTreeNode? = null
+        var dir = 0
+
+        while (!BinaryTree.is_eob(node)) {
+            prev = node
+            if (i == node!!.data) return
+            if (i < node.data as Int) {
+                node = node.left
+                dir = 1
+            } else {
+                node = node.right
+                dir = 2
+            }
+        }
+
+        when (dir) {
+            0 -> insert_left(i)
+            1 -> insert_left(i, prev)
+            2 -> insert_right(i, prev)
+        }
+    }
+
+    fun BinaryTree.search_int(i: Int): BinaryTree.BinaryTreeNode? {
+        var node = root
+
+        while (!BinaryTree.is_eob(node)) {
+            if (i == node!!.data) return node
+            if (i < node.data as Int) {
+                node = node.left
+            } else {
+                node = node.right
+            }
+        }
+        return null
+    }
+
+    @Test
+    fun example() {
+        val tree = BinaryTree()
+        tree.insert_int(20)
+        tree.insert_int(30)
+        tree.insert_int(10)
+        tree.insert_int(5)
+        tree.insert_int(15)
+        tree.insert_int(25)
+        tree.insert_int(23)
+        tree.insert_int(26)
+        tree.insert_int(70)
+        tree.insert_int(80)
+
+        println("Test inserted nodes")
+        var list = tree.order(PreOrder)
+        verify(list, arrayOf(20, 10, 5, 15, 30, 25, 23, 26, 70, 80))
+
+        println("Searching the node 30")
+        var node = tree.search_int(30)
+        assertEquals(node!!.data, 30)
+        println("Removing the left tree below 30")
+        tree.remove_left(node)
+        list = tree.order(PreOrder)
+        verify(list, arrayOf(20, 10, 5, 15, 30, 70, 80))
+
+        println("Searching the node 90")
+        node = tree.search_int(90)
+        assertNull(node)
+
+        println("Searching the node 20")
+        node = tree.search_int(20)
+        assertEquals(node!!.data, 20)
+        println("Removing the right tree below 20")
+        tree.remove_right(node)
+        list = tree.order(PreOrder)
+        verify(list, arrayOf(20, 10, 5, 15))
+
+        println("Testing is_leaf root")
+        assertFalse(BinaryTree.is_leaf(tree.root!!))
+        println("Testing is_leaf root->left")
+        assertFalse(BinaryTree.is_leaf(tree.root!!.left!!))
+        println("Testing is_leaf root->left->left")
+        assertTrue(BinaryTree.is_leaf(tree.root!!.left!!.left!!))
+        println("Testing is_leaf root->left->right")
+        assertTrue(BinaryTree.is_leaf(tree.root!!.left!!.right!!))
+
+        println("Testing traversal")
+        tree.insert_int(40)
+        tree.insert_int(90)
+        list = tree.order(PreOrder)
+        verify(list, arrayOf(20, 10, 5, 15, 40, 90))
+        list = tree.order(InOrder)
+        verify(list, arrayOf(5, 10, 15, 20, 40, 90))
+        list = tree.order(PostOrder)
+        verify(list, arrayOf(5, 15, 10, 90, 40, 20))
     }
 }

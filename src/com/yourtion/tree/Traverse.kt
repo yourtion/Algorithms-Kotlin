@@ -11,8 +11,8 @@ enum class TraverseOrder { PreOrder, InOrder, PostOrder }
 /**
  * 根据 [order] 顺序遍历二叉树
  */
-fun BinaryTree.order(order : TraverseOrder): List {
-    when(order) {
+fun BinaryTree.order(order: TraverseOrder): List {
+    when (order) {
         TraverseOrder.PreOrder -> return pre_order()
         TraverseOrder.InOrder -> return in_order()
         TraverseOrder.PostOrder -> return post_order()
@@ -22,7 +22,7 @@ fun BinaryTree.order(order : TraverseOrder): List {
 /**
  * 前序方式来遍历二叉树
  */
-fun BinaryTree.pre_order(node: BinaryTree.BinaryTreeNode = root!!, list: List = List()) : List {
+fun BinaryTree.pre_order(node: BinaryTree.BinaryTreeNode = root!!, list: List = List()): List {
     if (!BinaryTree.is_eob(node)) {
         list.insert_next(node.data, list.tail)
 
@@ -40,7 +40,7 @@ fun BinaryTree.pre_order(node: BinaryTree.BinaryTreeNode = root!!, list: List = 
 /**
  * 中序方式来遍历二叉树
  */
-fun BinaryTree.in_order(node: BinaryTree.BinaryTreeNode = root!!, list: List = List()) : List {
+fun BinaryTree.in_order(node: BinaryTree.BinaryTreeNode = root!!, list: List = List()): List {
     if (!BinaryTree.is_eob(node)) {
 
         if (!BinaryTree.is_eob(node.left)) {
@@ -59,7 +59,7 @@ fun BinaryTree.in_order(node: BinaryTree.BinaryTreeNode = root!!, list: List = L
 /**
  * 后序方式来遍历二叉树
  */
-fun BinaryTree.post_order(node: BinaryTree.BinaryTreeNode = root!!, list: List = List()) : List {
+fun BinaryTree.post_order(node: BinaryTree.BinaryTreeNode = root!!, list: List = List()): List {
     if (!BinaryTree.is_eob(node)) {
 
         if (!BinaryTree.is_eob(node.left)) {

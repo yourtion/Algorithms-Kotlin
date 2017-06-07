@@ -1,7 +1,7 @@
 package com.yourtion.tree
 
 import com.yourtion.list.List
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Test
 
 /**
@@ -67,8 +67,7 @@ class AVLTreeTest {
         }
     }
 
-    @Test
-    fun insert() {
+    fun build_tree(): AVLTree {
         val tree = AVLTree(comp)
         tree.insert(9)
         tree.insert(8)
@@ -81,6 +80,12 @@ class AVLTreeTest {
         tree.insert(2)
         tree.insert(6)
         tree.insert(1)
+        return tree
+    }
+
+    @Test
+    fun insert() {
+        val tree = build_tree()
         val list = tree.pre_order()
         assertEquals(list.size, 10)
         verify(list, arrayOf(6, 2, 0, 1, 4, 3, 5, 8, 7, 9))
@@ -88,10 +93,28 @@ class AVLTreeTest {
 
     @Test
     fun remove() {
+        val tree = build_tree()
+        tree.remove(6)
+        tree.remove(0)
+        tree.remove(9)
+        tree.remove(3)
+        tree.remove(2)
+        tree.remove(8)
+        val list = tree.pre_order()
+        assertEquals(list.size, 4)
     }
 
     @Test
     fun lookup() {
+        val tree = build_tree()
+        assertTrue(tree.lookup(0))
+        assertTrue(tree.lookup(9))
+        assertTrue(tree.lookup(3))
+        assertTrue(tree.lookup(5))
+        assertFalse(tree.lookup(11))
+        assertFalse(tree.lookup(-1))
+        tree.remove(0)
+        assertFalse(tree.lookup(0))
     }
 
 }

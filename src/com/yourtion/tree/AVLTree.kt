@@ -52,8 +52,8 @@ class AVLTree : BinaryTree {
         return rotate_right(node)
     }
 
-    internal fun balance(node: AvlNode): AvlNode {
-        var res = node
+    internal fun balance(node: BinaryTreeNode): AvlNode {
+        var res = node as AvlNode
         if (get_height(node.left) - get_height(node.right) > 1) {
             if (get_height(node.left?.left) >= get_height(node.left?.right)) {
                 res = rotate_left(node)
@@ -81,18 +81,55 @@ class AVLTree : BinaryTree {
             node.right = _insert(data, node.right)
         }
 
-        return balance(node as AvlNode)
+        return balance(node)
+    }
+
+    internal fun _remove(data: Any, node: BinaryTreeNode? = null): AvlNode? {
+        if (node == null) return null
+
+        val cmpval = compare(data, node.data)
+        if (cmpval < 0) {
+            node.left = _remove(data, node.left)
+        } else if (cmpval > 0) {
+            node.right = _remove(data, node.right)
+        } else if (node.left != null && node.right != null) {
+            node.data = if (compare(node.right!!.left!!.data, node.right!!.right!!.data) < 0) node.right!!.left!!.data else node.right!!.right!!.data
+            node.right = _remove(node.data, node.right)
+        } else if (node.left != null) {
+            return balance(node.left!!)
+        } else if (node.right != null) {
+            return balance(node.right!!)
+        } else {
+            return null
+        }
+
+        return balance(node)
+    }
+
+    internal fun _lookup(data: Any, node: BinaryTreeNode? = null): AvlNode? {
+        if (node == null) return null
+
+        var ret: AvlNode? = node as AvlNode
+
+        val cmpval = compare(data, node.data)
+        if (cmpval < 0) {
+            ret = _lookup(data, node.left)
+        } else if (cmpval > 0) {
+            ret = _lookup(data, node.right)
+        }
+
+        return ret
     }
 
     fun insert(data: Any) {
         root = _insert(data, root)
     }
 
-    fun remove() {
-
+    fun remove(data: Any) {
+        root = _remove(data, root)
     }
 
-    fun lookup() {
-
+    fun lookup(data: Any): Boolean {
+        return _lookup(data, root) != null
     }
 }

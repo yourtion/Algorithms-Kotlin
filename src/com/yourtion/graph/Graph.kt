@@ -9,14 +9,17 @@ import com.yourtion.set.Set
  */
 
 /**
- *
+ * 邻接表
  */
 data class AdjList constructor(val vertex: Any, val adjacent: Set = Set())
 
+/**
+ * 顶点颜色
+ */
 enum class VertexColor { White, Gray, Black }
 
 /**
- *
+ * 图
  */
 class Graph {
     private var _vcount = 0
@@ -33,10 +36,16 @@ class Graph {
         return _adjlists
     }
 
+    /**
+     * 匹配节点元素
+     */
     private fun match(element: List.ListElmt, data: Any): Boolean {
         return (element.data as AdjList).vertex == data
     }
 
+    /**
+     * 将顶点 [data] 插入图中
+     */
     fun insert_vertex(data: Any): Boolean {
         var element = _adjlists.head
         while (element != null) {
@@ -50,6 +59,9 @@ class Graph {
         return true
     }
 
+    /**
+     * 将由 [data1] 以及 [data2] 所指定的顶点构成的边插入图中
+     */
     fun insert_edge(data1: Any, data2: Any): Boolean {
         var element = _adjlists.head
         var count = 0
@@ -68,6 +80,9 @@ class Graph {
         return true
     }
 
+    /**
+     * 从图中移除与 [data] 相匹配的顶点
+     */
     fun remove_vertex(data: Any): Boolean {
         var element = _adjlists.head
         var prev: List.ListElmt? = null
@@ -87,6 +102,9 @@ class Graph {
         return true
     }
 
+    /**
+     * 从图中移除从 [data1] 到 [data2] 的边
+     */
     fun remove_edge(data1: Any, data2: Any): Boolean {
         var element = _adjlists.head
         while (element != null) {
@@ -99,6 +117,9 @@ class Graph {
         return ret
     }
 
+    /**
+     * 取出图中由 [data] 所指定的顶点的邻接表
+     */
     fun get_adjlist(data: Any): AdjList? {
         var element = _adjlists.head
         while (element != null) {
@@ -108,6 +129,9 @@ class Graph {
         return null
     }
 
+    /**
+     * 判断由 [data2] 所指定的顶点是否与图中由 [data1] 所指定的顶点邻接
+     */
     fun is_adjacent(data1: Any, data2: Any): Boolean {
         var element = _adjlists.head
         while (element != null) {

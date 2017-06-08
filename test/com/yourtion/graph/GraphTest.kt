@@ -107,4 +107,58 @@ class GraphTest {
         assertFalse(graph.is_adjacent("B", "X"))
     }
 
+    @Test
+    fun example() {
+        val graph = Graph()
+        println("Inserting vertex a, b, c, d, e")
+        graph.insert_vertex("a")
+        graph.insert_vertex("b")
+        graph.insert_vertex("c")
+        graph.insert_vertex("d")
+        graph.insert_vertex("e")
+        assertEquals(graph.vcount, 5)
+
+        println("Inserting edges")
+        graph.insert_edge("a", "b")
+        graph.insert_edge("a", "c")
+        graph.insert_edge("b", "c")
+        graph.insert_edge("b", "d")
+        graph.insert_edge("c", "b")
+        graph.insert_edge("c", "c")
+        graph.insert_edge("c", "d")
+        graph.insert_edge("d", "a")
+        graph.insert_edge("e", "c")
+        graph.insert_edge("e", "d")
+        assertEquals(graph.ecount, 10)
+
+        println("Removing edges")
+        graph.remove_edge("a", "c")
+        graph.remove_edge("c", "c")
+        graph.remove_edge("e", "c")
+        graph.remove_edge("a", "b")
+        graph.remove_edge("d", "a")
+        assertEquals(graph.vcount, 5)
+        assertEquals(graph.ecount, 5)
+        assertTrue(graph.remove_vertex("a"))
+
+        println("Inserting edges again")
+        assertFalse(graph.insert_edge("f", "a"))
+        assertTrue(graph.insert_edge("c", "b"))
+        assertFalse(graph.insert_edge("f", "a"))
+        assertFalse(graph.remove_edge("c", "e"))
+        assertFalse(graph.insert_vertex("c"))
+        assertEquals(graph.vcount, 4)
+        assertEquals(graph.ecount, 6)
+
+        println("Testing is_adjacent")
+        assertTrue(graph.is_adjacent("b", "d"))
+        assertFalse(graph.is_adjacent("a", "e"))
+        assertTrue(graph.is_adjacent("e", "d"))
+        assertFalse(graph.is_adjacent("c", "a"))
+
+        println("Testing get_adjlist")
+        val c = graph.get_adjlist("c")
+        assertEquals(c!!.adjacent.size, 2)
+    }
+
 }

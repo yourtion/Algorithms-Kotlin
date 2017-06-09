@@ -1,7 +1,12 @@
 package com.yourtion.hash
 
 /**
+ * Open Addressed HashTables
  * Created by Yourtion on 05/06/2017.
+ */
+
+/**
+ * 开地址哈希表
  */
 class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: (Any) -> Int) {
 
@@ -15,6 +20,9 @@ class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: 
     internal val table = Array<Any?>(positions, { _ -> null })
     internal val vacated = OAHTDelete()
 
+    /**
+     * 向开地址哈希表中插入一个元素 [data]
+     */
     fun insert(data: Any): Boolean {
         if (size == positions) return false
         if (lookup(data)) return false
@@ -30,6 +38,9 @@ class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: 
         return false
     }
 
+    /**
+     * 从开地址哈希表中删除与 [data] 匹配的元素
+     */
     fun remove(data: Any): Boolean {
         for (i in IntRange(0, positions - 1)) {
             val pos = (h1(data) + i * h2(data)) % positions
@@ -43,6 +54,9 @@ class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: 
         return false
     }
 
+    /**
+     * 判断开地址哈希表中查找是否有与 [data] 相匹配的元素
+     */
     fun lookup(data: Any): Boolean {
         for (i in IntRange(0, positions - 1)) {
             val pos = (h1(data) + i * h2(data)) % positions

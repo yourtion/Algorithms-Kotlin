@@ -17,6 +17,7 @@ class ChainedHashTable constructor(buckets: Int, hash: (Any) -> Int) {
     val hash = hash
     // 元素数量
     var size = 0
+        private set
     // 哈希表
     internal val table = Array(buckets, { _ -> List() })
 

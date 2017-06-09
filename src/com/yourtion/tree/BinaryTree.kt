@@ -46,6 +46,7 @@ open class BinaryTree constructor(root: BinaryTreeNode? = null) {
 
     // 根节点
     var root: BinaryTreeNode? = root
+        protected set
 
     /**
      * 在二叉树中插入一个 [node] 所指定结点的左子结点 [data]

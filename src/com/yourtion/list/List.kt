@@ -16,8 +16,12 @@ open class List {
     class ListElmt(val data: Any, var next: ListElmt? = null)
 
     var size = 0
+        private set
     var head: ListElmt? = null
+        private set
     var tail: ListElmt? = null
+        private set
+
 
     /**
      * 在 [element] 后面插入一个新元素
@@ -64,7 +68,7 @@ open class List {
         // 禁止删除空链表的数据
         if (size == 0) return null
 
-        var old_element: ListElmt? = null
+        val old_element: ListElmt?
 
         if (element == null) {
             // 处理删除头部元素

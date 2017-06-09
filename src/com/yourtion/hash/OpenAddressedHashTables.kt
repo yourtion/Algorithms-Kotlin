@@ -11,6 +11,7 @@ class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: 
     val h1 = h1
     val h2 = h2
     var size = 0
+        private set
     internal val table = Array<Any?>(positions, { _ -> null })
     internal val vacated = OAHTDelete()
 

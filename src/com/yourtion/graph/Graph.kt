@@ -22,19 +22,12 @@ enum class VertexColor { White, Gray, Black }
  * 图
  */
 class Graph {
-    private var _vcount = 0
-    private var _ecount = 0
-    private val _adjlists = List()
 
-    val vcount: Int get() {
-        return _vcount
-    }
-    val ecount: Int get() {
-        return _ecount
-    }
-    val adjlists: List get() {
-        return _adjlists
-    }
+    var vcount = 0
+        private set
+    var ecount = 0
+        private set
+    val adjlists = List()
 
     /**
      * 匹配节点元素
@@ -47,7 +40,7 @@ class Graph {
      * 将顶点 [data] 插入图中
      */
     fun insert_vertex(data: Any): Boolean {
-        var element = _adjlists.head
+        var element = adjlists.head
         while (element != null) {
             if (match(element, data)) return false
             element = element.next
@@ -55,7 +48,7 @@ class Graph {
 
         val adjlist = AdjList(data)
         adjlists.insert_next(adjlist, adjlists.tail)
-        _vcount++
+        vcount++
         return true
     }
 
@@ -63,7 +56,7 @@ class Graph {
      * 将由 [data1] 以及 [data2] 所指定的顶点构成的边插入图中
      */
     fun insert_edge(data1: Any, data2: Any): Boolean {
-        var element = _adjlists.head
+        var element = adjlists.head
         var count = 0
         var node: List.ListElmt? = null
         while (element != null) {
@@ -76,7 +69,7 @@ class Graph {
         }
         if (count != 2 || node == null) return false
         (node.data as AdjList).adjacent.insert(data2)
-        _ecount++
+        ecount++
         return true
     }
 
@@ -84,7 +77,7 @@ class Graph {
      * 从图中移除与 [data] 相匹配的顶点
      */
     fun remove_vertex(data: Any): Boolean {
-        var element = _adjlists.head
+        var element = adjlists.head
         var prev: List.ListElmt? = null
         var found = false
         while (element != null) {
@@ -97,8 +90,8 @@ class Graph {
             element = element.next
         }
         if (!found) return false
-        _adjlists.remove_next(prev)
-        _vcount--
+        adjlists.remove_next(prev)
+        vcount--
         return true
     }
 
@@ -106,14 +99,14 @@ class Graph {
      * 从图中移除从 [data1] 到 [data2] 的边
      */
     fun remove_edge(data1: Any, data2: Any): Boolean {
-        var element = _adjlists.head
+        var element = adjlists.head
         while (element != null) {
             if (match(element, data1)) break
             element = element.next
         }
         if (element == null) return false
         val ret = (element.data as AdjList).adjacent.remove(data2)
-        if (ret) _ecount--
+        if (ret) ecount--
         return ret
     }
 
@@ -121,7 +114,7 @@ class Graph {
      * 取出图中由 [data] 所指定的顶点的邻接表
      */
     fun get_adjlist(data: Any): AdjList? {
-        var element = _adjlists.head
+        var element = adjlists.head
         while (element != null) {
             if (match(element, data)) return element.data as AdjList
             element = element.next
@@ -133,7 +126,7 @@ class Graph {
      * 判断由 [data2] 所指定的顶点是否与图中由 [data1] 所指定的顶点邻接
      */
     fun is_adjacent(data1: Any, data2: Any): Boolean {
-        var element = _adjlists.head
+        var element = adjlists.head
         while (element != null) {
             if (match(element, data1)) {
                 return (element.data as AdjList).adjacent.is_member(data2)

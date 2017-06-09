@@ -17,8 +17,11 @@ class DList {
     class DListElmt(val data: Any, var prev: DListElmt? = null, var next: DListElmt? = null)
 
     var size = 0
+        private set
     var head: DListElmt? = null
+        private set
     var tail: DListElmt? = null
+        private set
 
     /**
      * 在 [element] 后面插入一个新元素

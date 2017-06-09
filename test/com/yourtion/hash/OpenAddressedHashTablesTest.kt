@@ -68,8 +68,8 @@ class OpenAddressedHashTablesTest {
         var str = "-> ChainedHashTable size: $size \n"
         for (i in IntRange(0, positions - 1)) {
             val slot = table[i]
-            if (table[i] != null && table[i] != vacated) {
-                str += "--> Slot[$i] = " + table[i]
+            if (slot != null && slot != vacated) {
+                str += "--> Slot[$i] = $slot"
             } else {
                 str += "--> Slot[$i] = "
             }

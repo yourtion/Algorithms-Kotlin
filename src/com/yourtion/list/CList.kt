@@ -15,7 +15,9 @@ class CList {
     class CListElmt(val data: Any, var next: CListElmt? = null)
 
     var size = 0
+        private set
     var head: CListElmt? = null
+        private set
 
     /**
      * 在 [element] 后面插入一个新元素

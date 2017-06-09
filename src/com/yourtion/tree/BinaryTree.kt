@@ -1,7 +1,7 @@
 package com.yourtion.tree
 
 /**
- * BinaryTree
+ * Binary Tree
  * Created by Yourtion on 06/06/2017.
  */
 

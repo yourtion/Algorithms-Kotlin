@@ -1,7 +1,7 @@
 package com.yourtion.tree
 
 /**
- * AVLTree
+ * AVL Binary Search Tree
  * Created by Yourtion on 06/06/2017.
  */
 

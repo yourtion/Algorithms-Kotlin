@@ -1,10 +1,11 @@
-package com.yourtion.list
+package com.yourtion.stack
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
+ * QueueTest
  * Created by Yourtion on 08/06/2017.
  */
 class QueueTest {

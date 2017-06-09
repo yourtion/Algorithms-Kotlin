@@ -3,6 +3,7 @@ package com.yourtion.hash
 import com.yourtion.list.List
 
 /**
+ * Chained Hash Table
  * Created by Yourtion on 05/06/2017.
  */
 

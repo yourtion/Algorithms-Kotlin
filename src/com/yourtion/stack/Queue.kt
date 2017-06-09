@@ -1,4 +1,6 @@
-package com.yourtion.list
+package com.yourtion.stack
+
+import com.yourtion.list.List
 
 /**
  * Queue

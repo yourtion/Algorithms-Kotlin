@@ -4,6 +4,7 @@ import org.junit.Assert.*
 import org.junit.Test
 
 /**
+ * SetTest
  * Created by Yourtion on 02/06/2017.
  */
 class SetTest {

@@ -1,10 +1,9 @@
 package com.yourtion.list
 
 /**
+ * Doubly-linked List
  * Created by Yourtion on 01/06/2017.
  */
-
-
 
 /**
  * 双向链表

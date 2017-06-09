@@ -1,7 +1,7 @@
 package com.yourtion.graph
 
 import com.yourtion.list.List
-import com.yourtion.list.Queue
+import com.yourtion.stack.Queue
 
 /**
  * Graph breadth-first search

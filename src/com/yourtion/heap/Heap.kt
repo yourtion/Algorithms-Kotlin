@@ -4,6 +4,10 @@ package com.yourtion.heap
  * Heap
  * Created by Yourtion on 07/06/2017.
  */
+
+/**
+ * 堆
+ */
 class Heap constructor(compare: (Any, Any) -> Int) {
 
     private val compare: (Any, Any) -> Int = compare

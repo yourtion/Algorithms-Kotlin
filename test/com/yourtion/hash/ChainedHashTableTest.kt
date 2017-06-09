@@ -4,6 +4,7 @@ import org.junit.Assert.*
 import org.junit.Test
 
 /**
+ * ChainedHashTableTest
  * Created by Yourtion on 05/06/2017.
  */
 class ChainedHashTableTest {

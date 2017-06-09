@@ -5,9 +5,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
+ * TraverseTest
  * Created by Yourtion on 06/06/2017.
  */
-class TraverseKtTest {
+class TraverseTest {
 
     fun buildTree() :BinaryTree {
         val tree = BinaryTree()

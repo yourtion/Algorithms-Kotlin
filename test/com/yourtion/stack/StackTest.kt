@@ -5,6 +5,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
+ * StackTest
  * Created by Yourtion on 05/06/2017.
  */
 class StackTest {

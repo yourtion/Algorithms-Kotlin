@@ -3,6 +3,7 @@ package com.yourtion.stack
 import com.yourtion.list.List
 
 /**
+ * Stack
  * Created by Yourtion on 05/06/2017.
  */
 

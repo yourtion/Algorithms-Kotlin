@@ -10,7 +10,7 @@ import org.junit.Test
 class DListTest {
     @Test
     fun insert_next() {
-        val list = DList()
+        val list = DList<String>()
         val a = list.insert_next("a")
         assertEquals(a!!.data, "a")
         val a1 = list.insert_next("a")
@@ -22,7 +22,7 @@ class DListTest {
 
     @Test
     fun insert_prev() {
-        val list = DList()
+        val list = DList<String>()
         val a = list.insert_prev("a")
         assertEquals(a!!.data, "a")
         val a1 = list.insert_prev("a")
@@ -34,7 +34,7 @@ class DListTest {
 
     @Test
     fun remove() {
-        val list = DList()
+        val list = DList<String>()
         val a = list.insert_next("a")
         val b = list.insert_next("b", a)
         val c = list.insert_next("c", b)
@@ -49,35 +49,23 @@ class DListTest {
 
     @Test
     fun is_head() {
-        val list = DList()
+        val list = DList<String>()
         val a = list.insert_next("a")
         assertTrue(list.is_head(a!!))
     }
 
     @Test
     fun is_tail() {
-        val list = DList()
+        val list = DList<String>()
         val a = list.insert_next("a")
         assertTrue(list.is_tail(a!!))
         val b = list.insert_next("b", a)
         assertTrue(list.is_tail(b!!))
     }
 
-    fun DList.print() {
-        if (size == 0) return println("-> DList is Empty")
-        var str = "-> DList size: $size \n-"
-        var element = head
-        while (element != null) {
-            str += "-> [" + element.data.toString() + "] "
-            element = element.next
-        }
-        str += "\n"
-        print(str)
-    }
-
     @Test
     fun example() {
-        val list = DList()
+        val list = DList<Int>()
 
         for (i in IntRange(1, 10).reversed()) {
             list.insert_next(i, list.head)

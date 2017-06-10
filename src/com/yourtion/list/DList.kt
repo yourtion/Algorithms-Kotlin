@@ -8,18 +8,18 @@ package com.yourtion.list
 /**
  * 双向链表
  */
-class DList {
+class DList<E> {
 
     /**
      * 双向链表节点
      */
-    class DListElmt(val data: Any, var prev: DListElmt? = null, var next: DListElmt? = null)
+    data class DListElmt<E>(val data: E, var prev: DListElmt<E>? = null, var next: DListElmt<E>? = null)
 
     var size = 0
         private set
-    var head: DListElmt? = null
+    var head: DListElmt<E>? = null
         private set
-    var tail: DListElmt? = null
+    var tail: DListElmt<E>? = null
         private set
 
     /**
@@ -30,7 +30,7 @@ class DList {
      *
      * @return 新插入元素
      */
-    fun insert_next(data: Any, element: DListElmt? = null): DListElmt? {
+    fun insert_next(data: E, element: DListElmt<E>? = null): DListElmt<E>? {
         // 除非是空双向链表，否则不允许 element 为 NULL
         if (element == null && size != 0) return null
 
@@ -68,7 +68,7 @@ class DList {
      *
      * @return 新插入元素
      */
-    fun insert_prev(data: Any, element: DListElmt? = null): DListElmt? {
+    fun insert_prev(data: E, element: DListElmt<E>? = null): DListElmt<E>? {
         // 除非是空双向链表，否则不允许 element 为 NULL
         if (element == null && size != 0) return null
 
@@ -105,7 +105,7 @@ class DList {
      *
      * @return 被删除元素
      */
-    fun remove(element: DListElmt): DListElmt? {
+    fun remove(element: DListElmt<E>): DListElmt<E>? {
         // 禁止删除 element 为空或空链表的数据
         if (size == 0) return null
 
@@ -138,15 +138,27 @@ class DList {
     /**
      * 判断元素 [element] 是否为头节点
      */
-    fun is_head(element: DListElmt): Boolean {
+    fun is_head(element: DListElmt<E>): Boolean {
         return element === head
     }
 
     /**
      * 判断元素 [element] 是否为尾节点
      */
-    fun is_tail(element: DListElmt): Boolean {
+    fun is_tail(element: DListElmt<E>): Boolean {
         return element === tail
+    }
+
+    fun print() {
+        if (size == 0) return println("-> $this is Empty")
+        var str = "-> $this size: $size \n-"
+        var element = head
+        while (element != null) {
+            str += "-> [" + element.data.toString() + "] "
+            element = element.next
+        }
+        str += "\n"
+        print(str)
     }
 
 }

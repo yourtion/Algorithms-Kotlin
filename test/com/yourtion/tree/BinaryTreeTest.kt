@@ -12,7 +12,7 @@ import org.junit.Test
 class BinaryTreeTest {
     @Test
     fun insert_left() {
-        val tree = BinaryTree()
+        val tree = BinaryTree<String>()
         val a = tree.insert_left("A")
         assertNotNull(a)
         assertEquals(tree.root, a)
@@ -28,7 +28,7 @@ class BinaryTreeTest {
 
     @Test
     fun insert_right() {
-        val tree = BinaryTree()
+        val tree = BinaryTree<String>()
         val a = tree.insert_right("A")
         assertNotNull(a)
         assertEquals(tree.root, a)
@@ -44,7 +44,7 @@ class BinaryTreeTest {
 
     @Test
     fun remove_left() {
-        val tree = BinaryTree()
+        val tree = BinaryTree<String>()
         val a = tree.insert_left("A")
         val b1 = tree.insert_left("B1", a)
         val b2 = tree.insert_right("B2", a)
@@ -60,7 +60,7 @@ class BinaryTreeTest {
 
     @Test
     fun remove_right() {
-        val tree = BinaryTree()
+        val tree = BinaryTree<String>()
         val a = tree.insert_right("A")
         val b2 = tree.insert_right("B2", a)
         tree.insert_left("B1", a)
@@ -75,16 +75,8 @@ class BinaryTreeTest {
     }
 
     @Test
-    fun is_eob() {
-        val tree = BinaryTree()
-        val a = tree.insert_right("A")
-        assertFalse(BinaryTree.is_eob(a))
-        assertTrue(BinaryTree.is_eob(null))
-    }
-
-    @Test
     fun is_leaf() {
-        val tree = BinaryTree()
+        val tree = BinaryTree<String>()
         val a = tree.insert_right("A")
         val b1 = tree.insert_left("B1", a)
         val b2 = tree.insert_right("B2", a)
@@ -96,11 +88,11 @@ class BinaryTreeTest {
 
     @Test
     fun merge() {
-        val tree1 = BinaryTree()
+        val tree1 = BinaryTree<String>()
         val a1 = tree1.insert_right("A1")
         val b1 = tree1.insert_left("B1", a1)
 
-        val tree2 = BinaryTree()
+        val tree2 = BinaryTree<String>()
         val a2 = tree2.insert_left("a1")
         val b2 = tree2.insert_right("b1", a2)
 
@@ -112,7 +104,7 @@ class BinaryTreeTest {
         assertEquals(tree.root!!.right!!.right, b2)
     }
 
-    fun verify(list: List, order: Array<Int>) {
+    fun verify(list: List<Int>, order: Array<Int>) {
         var element = list.head
         for (i in IntRange(0, list.size - 1)) {
             assertEquals(element!!.data, order[i])
@@ -120,15 +112,15 @@ class BinaryTreeTest {
         }
     }
 
-    fun BinaryTree.insert_int(i: Int) {
+    fun BinaryTree<Int>.insert_int(i: Int) {
         var node = root
-        var prev: BinaryTree.BinaryTreeNode? = null
+        var prev: BinaryTree.BinaryTreeNode<Int>? = null
         var dir = 0
 
-        while (!BinaryTree.is_eob(node)) {
+        while (node != null) {
             prev = node
-            if (i == node!!.data) return
-            if (i < node.data as Int) {
+            if (i == node.data) return
+            if (i < node.data) {
                 node = node.left
                 dir = 1
             } else {
@@ -144,12 +136,12 @@ class BinaryTreeTest {
         }
     }
 
-    fun BinaryTree.search_int(i: Int): BinaryTree.BinaryTreeNode? {
+    fun BinaryTree<Int>.search_int(i: Int): BinaryTree.BinaryTreeNode<Int>? {
         var node = root
 
-        while (!BinaryTree.is_eob(node)) {
-            if (i == node!!.data) return node
-            if (i < node.data as Int) {
+        while (node != null) {
+            if (i == node.data) return node
+            if (i < node.data) {
                 node = node.left
             } else {
                 node = node.right
@@ -160,7 +152,7 @@ class BinaryTreeTest {
 
     @Test
     fun example() {
-        val tree = BinaryTree()
+        val tree = BinaryTree<Int>()
         tree.insert_int(20)
         tree.insert_int(30)
         tree.insert_int(10)

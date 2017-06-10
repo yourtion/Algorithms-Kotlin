@@ -10,14 +10,14 @@ import com.yourtion.list.List
 /**
  * 集合
  */
-class Set : List() {
+class Set<E> : List<E>() {
 
     /**
      * 在集合中插入一个成员 [data]
      *
      * @param data 数据
      */
-    fun insert(data: Any): Boolean {
+    fun insert(data: E): Boolean {
         if (is_member(data)) return false
         super.insert_next(data, tail)
         return true
@@ -28,9 +28,9 @@ class Set : List() {
      *
      * @param data 数据
      */
-    fun remove(data: Any): Boolean {
+    fun remove(data: E): Boolean {
         var member = head
-        var prev: ListElmt? = null
+        var prev: ListElmt<E>? = null
         while (member != null) {
             if (member.data == data) {
                 break
@@ -50,7 +50,7 @@ class Set : List() {
      *
      * @param data 数据
      */
-    fun is_member(data: Any): Boolean {
+    fun is_member(data: E): Boolean {
         var member = head
         while (member != null) {
             if (member.data == data) {
@@ -67,7 +67,7 @@ class Set : List() {
      *
      * @param set 待判断集合
      */
-    fun is_subset(set: Set): Boolean {
+    fun is_subset(set: Set<E>): Boolean {
         if (size > set.size) return false
 
         var member = head
@@ -85,7 +85,7 @@ class Set : List() {
      *
      * @param set 待判断集合
      */
-    fun is_equal(set: Set): Boolean {
+    fun is_equal(set: Set<E>): Boolean {
         if (size != set.size) return false
         return is_subset(set)
     }
@@ -95,8 +95,8 @@ class Set : List() {
      *
      * @param set 集合
      */
-    fun union(set: Set): Set {
-        val setu = Set()
+    fun union(set: Set<E>): Set<E> {
+        val setu = Set<E>()
 
         var member = head
         while (member != null) {
@@ -120,8 +120,8 @@ class Set : List() {
      *
      * @param set 集合
      */
-    fun intersection(set: Set): Set {
-        val seti = Set()
+    fun intersection(set: Set<E>): Set<E> {
+        val seti = Set<E>()
 
         var member = head
         while (member != null) {
@@ -139,8 +139,8 @@ class Set : List() {
      *
      * @param set 集合
      */
-    fun difference(set: Set): Set {
-        val setd = Set()
+    fun difference(set: Set<E>): Set<E> {
+        val setd = Set<E>()
 
         var member = head
         while (member != null) {
@@ -152,5 +152,4 @@ class Set : List() {
 
         return setd
     }
-
 }

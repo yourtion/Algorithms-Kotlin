@@ -10,7 +10,7 @@ import org.junit.Test
 class SetTest {
     @Test
     fun insert() {
-        val set = Set()
+        val set = Set<String>()
         assertTrue(set.insert("a"))
         assertTrue(set.insert("b"))
         assertFalse(set.insert("a"))
@@ -18,7 +18,7 @@ class SetTest {
 
     @Test
     fun remove() {
-        val set = Set()
+        val set = Set<String>()
         set.insert("a")
         set.insert("b")
         set.insert("c")
@@ -29,7 +29,7 @@ class SetTest {
 
     @Test
     fun is_member() {
-        val set = Set()
+        val set = Set<String>()
         set.insert("a")
         assertTrue(set.is_member("a"))
         assertFalse(set.is_member("b"))
@@ -37,8 +37,8 @@ class SetTest {
 
     @Test
     fun is_subset() {
-        val set1 = Set()
-        val set2 = Set()
+        val set1 = Set<String>()
+        val set2 = Set<String>()
         assertTrue(set1.is_subset(set2))
 
         set1.insert("a")
@@ -54,8 +54,8 @@ class SetTest {
 
     @Test
     fun is_equal() {
-        val set1 = Set()
-        val set2 = Set()
+        val set1 = Set<String>()
+        val set2 = Set<String>()
         assertTrue(set1.is_equal(set2))
 
         set1.insert("a")
@@ -67,8 +67,8 @@ class SetTest {
 
     @Test
     fun union() {
-        val set1 = Set()
-        val set2 = Set()
+        val set1 = Set<String>()
+        val set2 = Set<String>()
         var set3 = set1.union(set2)
         assertEquals(set3.size, 0)
 
@@ -88,8 +88,8 @@ class SetTest {
 
     @Test
     fun intersection() {
-        val set1 = Set()
-        val set2 = Set()
+        val set1 = Set<String>()
+        val set2 = Set<String>()
         var set3 = set1.intersection(set2)
         assertEquals(set3.size, 0)
 
@@ -106,8 +106,8 @@ class SetTest {
 
     @Test
     fun difference() {
-        val set1 = Set()
-        val set2 = Set()
+        val set1 = Set<String>()
+        val set2 = Set<String>()
         var set3 = set1.difference(set2)
         assertEquals(set3.size, 0)
 
@@ -123,21 +123,9 @@ class SetTest {
         assertEquals(set3.size, 0)
     }
 
-    fun Set.print() {
-        if (size == 0) return println("-> Set is Empty")
-        var str = "-> Set size: $size \n-"
-        var element = head
-        while (element != null) {
-            str += "-> [" + element.data.toString() + "] "
-            element = element.next
-        }
-        str += "\n"
-        print(str)
-    }
-
     @Test
     fun example() {
-        val set = Set()
+        val set = Set<Int>()
 
         for (i in IntRange(1, 10).reversed()) {
             set.insert(i)
@@ -165,8 +153,8 @@ class SetTest {
         set.print()
         assertEquals(set.size, 9)
 
-        val set1 = Set()
-        val set2 = Set()
+        val set1 = Set<Int>()
+        val set2 = Set<Int>()
 
         for (i in IntRange(1, 10).reversed()) {
             set1.insert(i)

@@ -10,7 +10,7 @@ import org.junit.Test
 class CListTest {
     @Test
     fun insert_next() {
-        val list = CList()
+        val list = CList<String>()
         val a = list.insert_next("a")
         assertEquals(a!!.data, "a")
         val b = list.insert_next("b", a)
@@ -20,7 +20,7 @@ class CListTest {
 
     @Test
     fun remove_next() {
-        val list = CList()
+        val list = CList<String>()
         val a = list.insert_next("a")
         val b = list.insert_next("b", a)
         val aa = list.remove_next(b!!)
@@ -34,28 +34,14 @@ class CListTest {
 
     @Test
     fun is_head() {
-        val list = CList()
+        val list = CList<String>()
         val a = list.insert_next("a")
         assertTrue(list.is_head(a!!))
     }
 
-    fun CList.print() {
-        if (size == 0) return println("-> CList is Empty")
-        var str = "-> List size: $size \n-"
-        var i = size
-        var element = head
-        while (i > 0) {
-            str += "-> [" + element!!.data.toString() + "] "
-            element = element.next
-            i--
-        }
-        str += "\n"
-        print(str)
-    }
-
     @Test
     fun example() {
-        val list = CList()
+        val list = CList<Int>()
         var element = list.head
 
         for (i in IntRange(1, 10)) {

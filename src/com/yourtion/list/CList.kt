@@ -8,16 +8,16 @@ package com.yourtion.list
 /**
  * 循环链表
  */
-class CList {
+class CList<E> {
 
     /**
      * 循环链表元素
      */
-    class CListElmt(val data: Any, var next: CListElmt? = null)
+    data class CListElmt<E>(val data: E, var next: CListElmt<E>? = null)
 
     var size = 0
         private set
-    var head: CListElmt? = null
+    var head: CListElmt<E>? = null
         private set
 
     /**
@@ -28,7 +28,7 @@ class CList {
      *
      * @return 新插入元素
      */
-    fun insert_next(data: Any, element: CListElmt? = null): CListElmt? {
+    fun insert_next(data: E, element: CListElmt<E>? = null): CListElmt<E>? {
         if (element == null && size != 0) return null
 
         val new_element = CListElmt(data)
@@ -55,7 +55,7 @@ class CList {
      *
      * @return 被删除元素
      */
-    fun remove_next(element: CListElmt): CListElmt? {
+    fun remove_next(element: CListElmt<E>): CListElmt<E>? {
         // 禁止删除空链表的数据
         if (size == 0) return null
 
@@ -82,8 +82,22 @@ class CList {
     /**
      * 判断元素 [element] 是否为头节点
      */
-    fun is_head(element: CListElmt): Boolean {
+    fun is_head(element: CListElmt<E>): Boolean {
         return element === head
+    }
+
+    fun print() {
+        if (size == 0) return println("-> $this is Empty")
+        var str = "-> $this size: $size \n-"
+        var i = size
+        var element = head
+        while (i > 0) {
+            str += "-> [" + element!!.data.toString() + "] "
+            element = element.next
+            i--
+        }
+        str += "\n"
+        print(str)
     }
 
 }

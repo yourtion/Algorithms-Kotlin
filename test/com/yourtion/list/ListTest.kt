@@ -12,7 +12,7 @@ internal class ListTest {
 
     @Test
     fun insert_next() {
-        val list = List()
+        val list = List<String>()
         val a = list.insert_next("a")
         assertEquals(a.data, "a")
         val b = list.insert_next("b", a)
@@ -22,7 +22,7 @@ internal class ListTest {
 
     @Test
     fun remove_next() {
-        val list = List()
+        val list = List<String>()
         val a = list.insert_next("a")
         val b = list.insert_next("b", a)
         list.insert_next("c", b)
@@ -39,35 +39,23 @@ internal class ListTest {
 
     @Test
     fun is_head() {
-        val list = List()
+        val list = List<String>()
         val a = list.insert_next("a")
         assertTrue(list.is_head(a))
     }
 
     @Test
     fun is_tail() {
-        val list = List()
+        val list = List<String>()
         val a = list.insert_next("a")
         assertTrue(list.is_tail(a))
         val b = list.insert_next("b", a)
         assertTrue(list.is_tail(b))
     }
 
-    fun List.print() {
-        if (size == 0) return println("-> List is Empty")
-        var str = "-> List size: $size \n-"
-        var element = head
-        while (element != null) {
-            str += "-> [" + element.data.toString() + "] "
-            element = element.next
-        }
-        str += "\n"
-        print(str)
-    }
-
     @Test
     fun example() {
-        val list = List()
+        val list = List<Int>()
 
         for (i in IntRange(1, 10).reversed()) {
             list.insert_next(i)

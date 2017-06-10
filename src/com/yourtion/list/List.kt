@@ -9,18 +9,18 @@ package com.yourtion.list
 /**
  * 链表
  */
-open class List {
+open class List<E> {
 
     /**
      * 链表元素
      */
-    class ListElmt(val data: Any, var next: ListElmt? = null)
+    data class ListElmt<E>(val data: E, var next: ListElmt<E>? = null)
 
     var size = 0
         private set
-    var head: ListElmt? = null
+    var head: ListElmt<E>? = null
         private set
-    var tail: ListElmt? = null
+    var tail: ListElmt<E>? = null
         private set
 
 
@@ -32,7 +32,7 @@ open class List {
      *
      * @return 新插入元素
      */
-    fun insert_next(data: Any, element: ListElmt? = null): ListElmt {
+    fun insert_next(data: E, element: ListElmt<E>? = null): ListElmt<E> {
         val new_element = ListElmt(data)
 
         if (element == null) {
@@ -65,11 +65,11 @@ open class List {
      *
      * @return 被删除元素
      */
-    fun remove_next(element: ListElmt? = null): ListElmt? {
+    fun remove_next(element: ListElmt<E>? = null): ListElmt<E>? {
         // 禁止删除空链表的数据
         if (size == 0) return null
 
-        val old_element: ListElmt?
+        val old_element: ListElmt<E>?
 
         if (element == null) {
             // 处理删除头部元素
@@ -99,14 +99,26 @@ open class List {
     /**
      * 判断元素 [element] 是否为头节点
      */
-    fun is_head(element: ListElmt): Boolean {
+    fun is_head(element: ListElmt<E>): Boolean {
         return element === head
     }
 
     /**
      * 判断元素 [element] 是否为尾节点
      */
-    fun is_tail(element: ListElmt): Boolean {
+    fun is_tail(element: ListElmt<E>): Boolean {
         return element === tail
+    }
+
+    fun print() {
+        if (size == 0) return println("-> $this is Empty")
+        var str = "-> $this size: $size \n-"
+        var element = head
+        while (element != null) {
+            str += "-> [" + element.data.toString() + "] "
+            element = element.next
+        }
+        str += "\n"
+        print(str)
     }
 }

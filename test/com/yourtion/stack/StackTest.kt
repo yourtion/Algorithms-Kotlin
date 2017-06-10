@@ -11,7 +11,7 @@ import org.junit.Test
 class StackTest {
     @Test
     fun push() {
-        val stack = Stack()
+        val stack = Stack<String>()
         stack.push("a")
         assertEquals(stack.size, 1)
         stack.push("b")
@@ -22,7 +22,7 @@ class StackTest {
 
     @Test
     fun pop() {
-        val stack = Stack()
+        val stack = Stack<String>()
         stack.push("a")
         stack.push("b")
         stack.push("a")
@@ -38,7 +38,7 @@ class StackTest {
 
     @Test
     fun peek() {
-        val stack = Stack()
+        val stack = Stack<String>()
         stack.push("a")
         val a = stack.peek()
         assertEquals(stack.size, 1)
@@ -48,21 +48,9 @@ class StackTest {
         assertNull(n)
     }
 
-    fun Stack.print() {
-        if (size == 0) return println("-> Stack is Empty")
-        var str = "-> Stack size: $size \n-"
-        var element = head
-        while (element != null) {
-            str += "-> [" + element.data.toString() + "] "
-            element = element.next
-        }
-        str += "\n"
-        print(str)
-    }
-
     @Test
     fun example() {
-        val stack = Stack()
+        val stack = Stack<Int>()
 
         for (i in IntRange(1, 10).reversed()) {
             stack.insert_next(i)

@@ -10,26 +10,26 @@ import com.yourtion.list.List
 /**
  * 队列
  */
-class Queue : List() {
+open class Queue<E> : List<E>() {
 
     /**
      * 将 [data] 入队
      */
-    fun enqueue(data: Any): ListElmt {
+    fun enqueue(data: E): ListElmt<E> {
         return insert_next(data, tail)
     }
 
     /**
      * 出队
      */
-    fun dequeue(): Any? {
+    fun dequeue(): E? {
         return remove_next()?.data
     }
 
     /**
      * 获取队列头部元素中存储数据
      */
-    fun peek(): Any? {
+    fun peek(): E? {
         return head?.data
     }
 }

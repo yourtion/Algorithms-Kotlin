@@ -11,7 +11,7 @@ import org.junit.Test
 class QueueTest {
     @Test
     fun enqueue() {
-        val queue = Queue()
+        val queue = Queue<Int>()
         queue.enqueue(1)
         queue.enqueue(2)
         queue.enqueue(3)
@@ -20,7 +20,7 @@ class QueueTest {
 
     @Test
     fun dequeue() {
-        val queue = Queue()
+        val queue = Queue<Int>()
         queue.enqueue(1)
         queue.enqueue(2)
         queue.enqueue(3)
@@ -34,7 +34,7 @@ class QueueTest {
 
     @Test
     fun peek() {
-        val queue = Queue()
+        val queue = Queue<Int>()
         assertNull(queue.peek())
         queue.enqueue(1)
         assertEquals(queue.peek(), 1)

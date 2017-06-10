@@ -8,10 +8,10 @@ package com.yourtion.heap
 /**
  * 堆
  */
-class Heap constructor(compare: (Any, Any) -> Int) {
+open class Heap<E> constructor(compare: (E, E) -> Int) {
 
-    private val compare: (Any, Any) -> Int = compare
-    private var tree: MutableList<Any> = MutableList(0, {})
+    private val compare: (E, E) -> Int = compare
+    private var tree: MutableList<E> = mutableListOf()
     val size: Int
         get() = tree.size
 
@@ -24,28 +24,22 @@ class Heap constructor(compare: (Any, Any) -> Int) {
     /**
      * 获取父结点位置 (i-1)/2
      */
-    private fun parent(pos: Int): Int {
-        return (pos - 1) / 2
-    }
+    private val parent = { pos: Int -> (pos - 1) / 2 }
 
     /**
      * 获取左子结点位置 i*2+1
      */
-    private fun left(pos: Int): Int {
-        return pos * 2 + 1
-    }
+    private val left = { pos: Int -> pos * 2 + 1 }
 
     /**
      * 获取右子结点位置 i*2+2
      */
-    private fun right(pos: Int): Int {
-        return pos * 2 + 2
-    }
+    private val right = { pos: Int -> pos * 2 + 2 }
 
     /**
      * 向堆中插入一个结点 [data]
      */
-    fun insert(data: Any) {
+    fun insert(data: E) {
         var ipos = size
         var ppos = parent(ipos)
         tree.add(element = data)
@@ -61,7 +55,7 @@ class Heap constructor(compare: (Any, Any) -> Int) {
     /**
      * 从堆中释放堆顶部的结点
      */
-    fun extract(): Any? {
+    fun extract(): E? {
         if (size < 1) return null
         val data = tree.removeAt(0)
         if (size == 0) return data
@@ -69,9 +63,9 @@ class Heap constructor(compare: (Any, Any) -> Int) {
         // 通过将顶部节点下移保障树的平衡
 
         var ipos = 0
-        var lpos : Int
-        var rpos : Int
-        var mpos : Int
+        var lpos: Int
+        var rpos: Int
+        var mpos: Int
 
         while (true) {
             lpos = left(ipos)

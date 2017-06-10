@@ -9,11 +9,11 @@ import org.junit.Test
  */
 class HeapTest {
 
-    val compare_int = { data1: Any, data2: Any -> data1 as Int - data2 as Int }
+    val compare_int = { data1: Int, data2: Int -> data1 - data2 }
 
     @Test
     fun insert() {
-        val heap = Heap(compare_int)
+        val heap = Heap<Int>(compare_int)
         for (i in IntRange(0, 9)) {
             heap.insert(i)
             assertEquals(heap.size, i + 1)
@@ -26,7 +26,7 @@ class HeapTest {
 
     @Test
     fun extract() {
-        val heap = Heap(compare_int)
+        val heap = Heap<Int>(compare_int)
         for (i in IntRange(0, 9)) {
             heap.insert(i)
             assertEquals(heap.size, i + 1)
@@ -40,7 +40,7 @@ class HeapTest {
 
     @Test
     fun example() {
-        val heap = Heap(compare_int)
+        val heap = Heap<Int>(compare_int)
         heap.insert(5)
         heap.insert(10)
         heap.insert(20)

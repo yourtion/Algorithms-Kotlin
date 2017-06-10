@@ -10,8 +10,8 @@ import org.junit.Test
  */
 class TraverseTest {
 
-    fun buildTree() :BinaryTree {
-        val tree = BinaryTree()
+    fun buildTree() :BinaryTree<String> {
+        val tree = BinaryTree<String>()
         val a = tree.insert_left("A")
         val b1 = tree.insert_left("B1", a)
         val b2 = tree.insert_right("B2", a)
@@ -21,7 +21,7 @@ class TraverseTest {
         return tree
     }
 
-    fun verify(list:List, order: Array<String>) {
+    fun verify(list:List<String>, order: Array<String>) {
         var element = list.head
         for (i in IntRange(0, list.size - 1)) {
             assertEquals(element!!.data, order[i])

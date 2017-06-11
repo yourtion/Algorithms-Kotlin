@@ -11,7 +11,7 @@ import org.junit.Test
 class GraphBFSKtTest {
     @Test
     fun bfs() {
-        val graph = Graph()
+        val graph = Graph<BFSVertex<String>>()
         val a = BFSVertex("a")
         val b = BFSVertex("b")
         val c = BFSVertex("c")
@@ -35,7 +35,7 @@ class GraphBFSKtTest {
         assertEquals(list!!.size, 4)
     }
 
-    fun verify(list: List, order: Array<BFSVertex>) {
+    fun verify(list: List<BFSVertex<String>>, order: Array<BFSVertex<String>>) {
         var element = list.head
         for (i in IntRange(0, list.size - 1)) {
             assertEquals(element!!.data, order[i])
@@ -45,7 +45,7 @@ class GraphBFSKtTest {
 
     @Test
     fun example() {
-        val graph = Graph()
+        val graph = Graph<BFSVertex<String>>()
         println("Inserting vertex node1...node6")
         val n1 = BFSVertex("node1")
         val n2 = BFSVertex("node2")

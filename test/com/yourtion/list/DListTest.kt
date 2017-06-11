@@ -64,6 +64,18 @@ class DListTest {
     }
 
     @Test
+    fun iterator() {
+        val list = DList<Int>()
+        for (i in IntRange(1, 10)) {
+            list.insert_next(i)
+        }
+        for ((index, data) in list.withIndex()) {
+            assertEquals(index + 1, data)
+        }
+        list.forEachIndexed({ index, data -> assertEquals(index + 1, data) })
+    }
+
+    @Test
     fun example() {
         val list = DList<Int>()
 

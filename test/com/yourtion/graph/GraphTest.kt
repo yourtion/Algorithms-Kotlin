@@ -10,7 +10,7 @@ import org.junit.Test
 class GraphTest {
     @Test
     fun insert_vertex() {
-        val graph = Graph()
+        val graph = Graph<String>()
         assertTrue(graph.insert_vertex("A"))
         assertEquals(graph.vcount, 1)
         assertTrue(graph.insert_vertex("B"))
@@ -23,7 +23,7 @@ class GraphTest {
 
     @Test
     fun insert_edge() {
-        val graph = Graph()
+        val graph = Graph<String>()
         graph.insert_vertex("A")
         graph.insert_vertex("B")
         graph.insert_vertex("C")
@@ -40,8 +40,8 @@ class GraphTest {
         assertEquals(graph.ecount, 4)
     }
 
-    fun build_graph() :Graph {
-        val graph = Graph()
+    fun build_graph() :Graph<String> {
+        val graph = Graph<String>()
         graph.insert_vertex("A")
         graph.insert_vertex("B")
         graph.insert_vertex("C")
@@ -109,7 +109,7 @@ class GraphTest {
 
     @Test
     fun example() {
-        val graph = Graph()
+        val graph = Graph<String>()
         println("Inserting vertex a, b, c, d, e")
         graph.insert_vertex("a")
         graph.insert_vertex("b")

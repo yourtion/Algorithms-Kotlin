@@ -8,7 +8,7 @@ package com.yourtion.hash
 /**
  * 开地址哈希表
  */
-class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: (Any) -> Int) {
+class OpenAddressedHashTables<E> constructor(positions: Int, h1: (E) -> Int, h2: (E) -> Int) {
 
     internal class OAHTDelete {}
 
@@ -23,7 +23,7 @@ class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: 
     /**
      * 向开地址哈希表中插入一个元素 [data]
      */
-    fun insert(data: Any): Boolean {
+    fun insert(data: E): Boolean {
         if (size == positions) return false
         if (lookup(data)) return false
         for (i in IntRange(0, positions - 1)) {
@@ -41,7 +41,7 @@ class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: 
     /**
      * 从开地址哈希表中删除与 [data] 匹配的元素
      */
-    fun remove(data: Any): Boolean {
+    fun remove(data: E): Boolean {
         for (i in IntRange(0, positions - 1)) {
             val pos = (h1(data) + i * h2(data)) % positions
             if (table[pos] == null) return false
@@ -57,13 +57,28 @@ class OpenAddressedHashTables constructor(positions: Int, h1: (Any) -> Int, h2: 
     /**
      * 判断开地址哈希表中查找是否有与 [data] 相匹配的元素
      */
-    fun lookup(data: Any): Boolean {
+    fun lookup(data: E): Boolean {
         for (i in IntRange(0, positions - 1)) {
             val pos = (h1(data) + i * h2(data)) % positions
             if (table[pos] == null) return false
             if (table[pos] == data) return true
         }
         return false
+    }
+
+    fun print() {
+        if (size == 0) return println("-> $this is Empty")
+        var str = "-> $this size: $size \n"
+        for (i in IntRange(0, positions - 1)) {
+            val slot = table[i]
+            if (slot != null && slot != vacated) {
+                str += "--> Slot[$i] = $slot"
+            } else {
+                str += "--> Slot[$i] = "
+            }
+            str += "\n"
+        }
+        print(str)
     }
 
 }

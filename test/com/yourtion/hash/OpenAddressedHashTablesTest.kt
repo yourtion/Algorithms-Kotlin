@@ -14,7 +14,7 @@ class OpenAddressedHashTablesTest {
 
     @Test
     fun insert() {
-        val ohtb = OpenAddressedHashTables(11, hash1, hash2)
+        val ohtb = OpenAddressedHashTables<String>(11, hash1, hash2)
         assertTrue(ohtb.insert("A"))
         assertEquals(ohtb.size, 1)
         assertTrue(ohtb.insert("B"))
@@ -29,7 +29,7 @@ class OpenAddressedHashTablesTest {
 
     @Test
     fun remove() {
-        val ohtb = OpenAddressedHashTables(11, hash1, hash2)
+        val ohtb = OpenAddressedHashTables<String>(11, hash1, hash2)
         assertTrue(ohtb.insert("A"))
         assertTrue(ohtb.insert("B"))
         assertTrue(ohtb.insert("F"))
@@ -44,7 +44,7 @@ class OpenAddressedHashTablesTest {
 
     @Test
     fun lookup() {
-        val ohtb = OpenAddressedHashTables(11, hash1, hash2)
+        val ohtb = OpenAddressedHashTables<String>(11, hash1, hash2)
         assertTrue(ohtb.insert("A"))
         assertTrue(ohtb.insert("B"))
         assertTrue(ohtb.insert("F"))
@@ -55,7 +55,7 @@ class OpenAddressedHashTablesTest {
 
     @Test
     fun badHashFunction() {
-        val ohtb = OpenAddressedHashTables(11, hash1, hash1)
+        val ohtb = OpenAddressedHashTables<String>(11, hash1, hash1)
         assertTrue(ohtb.insert("B"))
         assertTrue(ohtb.insert("C"))
         assertTrue(ohtb.insert("D"))
@@ -64,24 +64,9 @@ class OpenAddressedHashTablesTest {
         assertFalse(ohtb.insert("c"))
     }
 
-    fun OpenAddressedHashTables.print() {
-        if (size == 0) return println("-> ChainedHashTable is Empty")
-        var str = "-> ChainedHashTable size: $size \n"
-        for (i in IntRange(0, positions - 1)) {
-            val slot = table[i]
-            if (slot != null && slot != vacated) {
-                str += "--> Slot[$i] = $slot"
-            } else {
-                str += "--> Slot[$i] = "
-            }
-            str += "\n"
-        }
-        print(str)
-    }
-
     @Test
     fun example() {
-        val ohtb = OpenAddressedHashTables(11, hash1, hash2)
+        val ohtb = OpenAddressedHashTables<String>(11, hash1, hash2)
         assertTrue(ohtb.insert("B"))
         assertTrue(ohtb.insert("C"))
         assertTrue(ohtb.insert("D"))

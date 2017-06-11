@@ -51,22 +51,6 @@ class ChainedHashTableTest {
         assertFalse(chtb.lookup("C"))
     }
 
-    fun ChainedHashTable.print() {
-        if (size == 0) return println("-> ChainedHashTable is Empty")
-        var str = "-> ChainedHashTable size: $size \n"
-        for (i in IntRange(0, buckets - 1)) {
-            val bucket = table[i]
-            var element = bucket.head
-            str += "--> Bucket[$i] = "
-            while (element != null) {
-                str += element.data.toString() + " "
-                element = element.next
-            }
-            str += "\n"
-        }
-        print(str)
-    }
-
     @Test
     fun example() {
         val alphabet1 = Array(26, { (it + 97).toChar().toString() })

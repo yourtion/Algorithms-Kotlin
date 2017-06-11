@@ -9,7 +9,7 @@ package com.yourtion.list
 /**
  * 链表
  */
-open class List<E> {
+open class List<E> : Iterable<E> {
 
     /**
      * 链表元素
@@ -113,12 +113,28 @@ open class List<E> {
     fun print() {
         if (size == 0) return println("-> $this is Empty")
         var str = "-> $this size: $size \n-"
-        var element = head
-        while (element != null) {
-            str += "-> [" + element.data.toString() + "] "
-            element = element.next
-        }
+        this.forEach { data -> str += "-> [" + data.toString() + "] " }
         str += "\n"
         print(str)
+    }
+
+    /**
+     * 迭代器
+     */
+    override fun iterator(): Iterator<E> {
+        return object : Iterator<E> {
+            var current = head
+
+            override fun hasNext(): Boolean {
+                return current != null
+            }
+
+            override fun next(): E {
+                val data = current!!.data!!
+                current = current!!.next
+                return data
+            }
+
+        }
     }
 }

@@ -54,6 +54,18 @@ internal class ListTest {
     }
 
     @Test
+    fun iterator() {
+        val list = List<Int>()
+        for (i in IntRange(1, 10).reversed()) {
+            list.insert_next(i)
+        }
+        for ((index, data) in list.withIndex()) {
+            assertEquals(index + 1, data)
+        }
+        list.forEachIndexed({ index, data -> assertEquals(index + 1, data) })
+    }
+
+    @Test
     fun example() {
         val list = List<Int>()
 

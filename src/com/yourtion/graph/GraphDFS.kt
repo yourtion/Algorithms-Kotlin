@@ -10,22 +10,22 @@ import com.yourtion.list.List
 /**
  * 广度搜索结点
  */
-data class DFSVertex(val data: Any, var color: VertexColor = VertexColor.White)
+data class DFSVertex<E>(val data: E, var color: VertexColor = VertexColor.White)
 
 /**
  * 广度搜索主函数
  */
-internal fun Graph.dfs_main(adjlist: AdjList, ordered: List) {
-    (adjlist.vertex as DFSVertex).color = VertexColor.Gray
+internal fun <E> Graph<DFSVertex<E>>.dfs_main(adjlist: AdjList<DFSVertex<E>>, ordered: List<DFSVertex<E>>) {
+    adjlist.vertex.color = VertexColor.Gray
 
     var element = adjlist.adjacent.head
-    var adj_vertex: DFSVertex
-    var clr_vertex: DFSVertex
-    var clr_adjlist: AdjList?
+    var adj_vertex: DFSVertex<E>
+    var clr_vertex: DFSVertex<E>
+    var clr_adjlist: AdjList<DFSVertex<E>>?
     while (element != null) {
-        adj_vertex = element.data as DFSVertex
+        adj_vertex = element.data
         clr_adjlist = get_adjlist(adj_vertex)
-        clr_vertex = clr_adjlist!!.vertex as DFSVertex
+        clr_vertex = clr_adjlist!!.vertex
 
         if (clr_vertex.color == VertexColor.White) {
             dfs_main(clr_adjlist, ordered)
@@ -41,20 +41,20 @@ internal fun Graph.dfs_main(adjlist: AdjList, ordered: List) {
 /**
  * 广度搜索
  */
-fun Graph.dfs(): List {
+fun <E> Graph<DFSVertex<E>>.dfs(): List<DFSVertex<E>> {
     var element = adjlists.head
-    var vertex: DFSVertex?
+    var vertex: DFSVertex<E>?
     while (element != null) {
-        ((element.data as AdjList).vertex as DFSVertex).color = VertexColor.White
+        element.data.vertex.color = VertexColor.White
         element = element.next
     }
 
-    val list = List()
+    val list = List<DFSVertex<E>>()
     element = adjlists.head
     while (element != null) {
-        vertex = ((element.data as AdjList).vertex as DFSVertex)
+        vertex = element.data.vertex
         if (vertex.color == VertexColor.White) {
-            dfs_main((element.data as AdjList), list)
+            dfs_main(element.data, list)
         }
         element = element.next
     }

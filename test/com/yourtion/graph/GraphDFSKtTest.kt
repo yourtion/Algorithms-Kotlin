@@ -11,7 +11,7 @@ import org.junit.Test
 class GraphDFSKtTest {
     @Test
     fun dfs() {
-        val graph = Graph()
+        val graph = Graph<DFSVertex<String>>()
         val a = DFSVertex("a")
         val b = DFSVertex("b")
         val c = DFSVertex("c")
@@ -27,10 +27,10 @@ class GraphDFSKtTest {
         assertEquals(list.size, 4)
     }
 
-    fun verify(list: List, order: Array<String>) {
+    fun verify(list: List<DFSVertex<String>>, order: Array<String>) {
         var element = list.head
         for (i in IntRange(0, list.size - 1)) {
-            val e = element!!.data as DFSVertex
+            val e = element!!.data
             assertEquals(e.data, order[i])
             assertEquals(e.color, VertexColor.Black)
             element = element.next
@@ -39,7 +39,7 @@ class GraphDFSKtTest {
 
     @Test
     fun example() {
-        val graph = Graph()
+        val graph = Graph<DFSVertex<String>>()
         println("Inserting vertex a...i")
         val a = DFSVertex("a")
         val b = DFSVertex("b")

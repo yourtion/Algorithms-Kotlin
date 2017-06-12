@@ -18,19 +18,13 @@ data class DFSVertex<E>(val data: E, var color: VertexColor = VertexColor.White)
 internal fun <E> Graph<DFSVertex<E>>.dfs_main(adjlist: AdjList<DFSVertex<E>>, ordered: List<DFSVertex<E>>) {
     adjlist.vertex.color = VertexColor.Gray
 
-    var element = adjlist.adjacent.head
-    var adj_vertex: DFSVertex<E>
-    var clr_vertex: DFSVertex<E>
     var clr_adjlist: AdjList<DFSVertex<E>>?
-    while (element != null) {
-        adj_vertex = element.data
-        clr_adjlist = get_adjlist(adj_vertex)
-        clr_vertex = clr_adjlist!!.vertex
+    for (element in adjlist.adjacent) {
+        clr_adjlist = get_adjlist(element)
 
-        if (clr_vertex.color == VertexColor.White) {
+        if (clr_adjlist != null && clr_adjlist.vertex.color == VertexColor.White) {
             dfs_main(clr_adjlist, ordered)
         }
-        element = element.next
     }
 
     adjlist.vertex.color = VertexColor.Black
@@ -42,22 +36,15 @@ internal fun <E> Graph<DFSVertex<E>>.dfs_main(adjlist: AdjList<DFSVertex<E>>, or
  * 广度搜索
  */
 fun <E> Graph<DFSVertex<E>>.dfs(): List<DFSVertex<E>> {
-    var element = adjlists.head
-    var vertex: DFSVertex<E>?
-    while (element != null) {
-        element.data.vertex.color = VertexColor.White
-        element = element.next
+    for ((vertex) in adjlists) {
+        vertex.color = VertexColor.White
     }
 
     val list = List<DFSVertex<E>>()
-    element = adjlists.head
-    while (element != null) {
-        vertex = element.data.vertex
-        if (vertex.color == VertexColor.White) {
-            dfs_main(element.data, list)
-        }
-        element = element.next
-    }
+    adjlists
+            .asSequence()
+            .filter { it.vertex.color == VertexColor.White }
+            .forEach { dfs_main(it, list) }
 
     return list
 }

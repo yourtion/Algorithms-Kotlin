@@ -13,7 +13,7 @@ class DListTest {
         val list = DList<String>()
         val a = list.insert_next("a")
         assertEquals(a!!.data, "a")
-        val a1 = list.insert_next("a")
+        val a1 = list.insert_next("a", null)
         assertNull(a1)
         val b = list.insert_next("b", a)
         assertEquals(b!!.data, "b")
@@ -25,7 +25,7 @@ class DListTest {
         val list = DList<String>()
         val a = list.insert_prev("a")
         assertEquals(a!!.data, "a")
-        val a1 = list.insert_prev("a")
+        val a1 = list.insert_prev("a", null)
         assertNull(a1)
         val b = list.insert_prev("b", a)
         assertEquals(b!!.data, "b")
@@ -38,11 +38,11 @@ class DListTest {
         val a = list.insert_next("a")
         val b = list.insert_next("b", a)
         val c = list.insert_next("c", b)
-        val ac = list.remove(c!!)
+        val ac = list.remove_element(c!!)
         assertEquals(ac!!.data, "c")
-        val aa = list.remove(a!!)
+        val aa = list.remove_element(a!!)
         assertEquals(aa!!.data, "a")
-        val ab = list.remove(b!!)
+        val ab = list.remove_element(b!!)
         assertEquals(ab!!.data, "b")
         assertEquals(list.size, 0)
     }
@@ -63,16 +63,33 @@ class DListTest {
         assertTrue(list.is_tail(b!!))
     }
 
+    fun <E> verify(list: DList<E>, res: Array<E>) {
+        for ((index, data) in list.withIndex()) {
+            assertEquals(data, res[index])
+        }
+    }
+
     @Test
     fun iterator() {
         val list = DList<Int>()
         for (i in IntRange(1, 10)) {
             list.insert_next(i)
         }
+        assertEquals(list.size, 10)
         for ((index, data) in list.withIndex()) {
             assertEquals(index + 1, data)
         }
         list.forEachIndexed({ index, data -> assertEquals(index + 1, data) })
+        list.print()
+        val list_it = list.iterator()
+        for (item in list_it) {
+            if (item % 3 == 0) list_it.remove()
+        }
+        list.print()
+        assertEquals(list.size, 7)
+        verify(list, arrayOf(1, 2, 4, 5, 7, 8, 10))
+        list.removeAll { true }
+        assertEquals(list.size, 0)
     }
 
     @Test
@@ -91,7 +108,7 @@ class DListTest {
         }
         println("Removing an element after the one containing " + element!!.data)
         assertEquals(element.data, 9)
-        element = list.remove(element)
+        element = list.remove_element(element)
         list.print()
         assertEquals(element!!.data, 9)
 
@@ -101,7 +118,7 @@ class DListTest {
         assertEquals(list.tail!!.data, 11)
 
         println("Removing an element at the tail of the list")
-        element = list.remove(list.tail!!)
+        element = list.remove_element(list.tail!!)
         list.print()
         assertEquals(element!!.data, 11)
 
@@ -121,7 +138,7 @@ class DListTest {
         element = element!!.next
         element = element!!.next
         element = element!!.next
-        element = list.remove(element!!)
+        element = list.remove_element(element!!)
         list.print()
         assertEquals(element!!.data, 4)
 
@@ -131,7 +148,7 @@ class DListTest {
         assertEquals(list.head!!.data, 13)
 
         println("Removing an element at the head of the list")
-        element = list.remove(list.head!!)
+        element = list.remove_element(list.head!!)
         list.print()
         assertEquals(element!!.data, 13)
         assertEquals(list.head!!.data, 10)

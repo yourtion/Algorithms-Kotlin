@@ -8,18 +8,18 @@ package com.yourtion.list
 /**
  * 双向链表
  */
-class DList<E> : Iterable<E> {
+class DList<E> : MutableIterable<E> {
 
     /**
      * 双向链表节点
      */
-    data class DListElmt<E>(val data: E, var prev: DListElmt<E>? = null, var next: DListElmt<E>? = null)
+    data class ListElmt<E>(val data: E, var prev: ListElmt<E>? = null, var next: ListElmt<E>? = null)
 
     var size = 0
         private set
-    var head: DListElmt<E>? = null
+    var head: ListElmt<E>? = null
         private set
-    var tail: DListElmt<E>? = null
+    var tail: ListElmt<E>? = null
         private set
 
     /**
@@ -30,11 +30,11 @@ class DList<E> : Iterable<E> {
      *
      * @return 新插入元素
      */
-    fun insert_next(data: E, element: DListElmt<E>? = null): DListElmt<E>? {
+    fun insert_next(data: E, element: ListElmt<E>? = tail): ListElmt<E>? {
         // 除非是空双向链表，否则不允许 element 为 NULL
         if (element == null && size != 0) return null
 
-        val new_element = DListElmt(data)
+        val new_element = ListElmt(data)
 
         if (size == 0) {
             // 处理空双向链表
@@ -68,11 +68,11 @@ class DList<E> : Iterable<E> {
      *
      * @return 新插入元素
      */
-    fun insert_prev(data: E, element: DListElmt<E>? = null): DListElmt<E>? {
+    fun insert_prev(data: E, element: ListElmt<E>? = head): ListElmt<E>? {
         // 除非是空双向链表，否则不允许 element 为 NULL
         if (element == null && size != 0) return null
 
-        val new_element = DListElmt(data)
+        val new_element = ListElmt(data)
 
         if (size == 0) {
             // 处理空双向链表
@@ -105,9 +105,10 @@ class DList<E> : Iterable<E> {
      *
      * @return 被删除元素
      */
-    fun remove(element: DListElmt<E>): DListElmt<E>? {
+    fun remove_element(element: ListElmt<E>? = head): ListElmt<E>? {
         // 禁止删除 element 为空或空链表的数据
         if (size == 0) return null
+        if (element == null) return null
 
         val old_element = element
 
@@ -138,14 +139,14 @@ class DList<E> : Iterable<E> {
     /**
      * 判断元素 [element] 是否为头节点
      */
-    fun is_head(element: DListElmt<E>): Boolean {
+    fun is_head(element: ListElmt<E>): Boolean {
         return element === head
     }
 
     /**
      * 判断元素 [element] 是否为尾节点
      */
-    fun is_tail(element: DListElmt<E>): Boolean {
+    fun is_tail(element: ListElmt<E>): Boolean {
         return element === tail
     }
 
@@ -160,9 +161,10 @@ class DList<E> : Iterable<E> {
     /**
      * 迭代器
      */
-    override fun iterator(): Iterator<E> {
-        return object : Iterator<E> {
-            var current = head
+    override fun iterator(): MutableIterator<E> {
+        return object : MutableIterator<E> {
+
+            private var current = head
 
             override fun hasNext(): Boolean {
                 return current != null
@@ -172,6 +174,10 @@ class DList<E> : Iterable<E> {
                 val data = current!!.data!!
                 current = current!!.next
                 return data
+            }
+
+            override fun remove() {
+                remove_element(if (current == null) head else current!!.prev)
             }
 
         }

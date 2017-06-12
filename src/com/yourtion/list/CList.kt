@@ -8,7 +8,7 @@ package com.yourtion.list
 /**
  * 循环链表
  */
-class CList<E> {
+class CList<E> : Iterable<E> {
 
     /**
      * 循环链表元素
@@ -89,15 +89,29 @@ class CList<E> {
     fun print() {
         if (size == 0) return println("-> $this is Empty")
         var str = "-> $this size: $size \n-"
-        var i = size
-        var element = head
-        while (i > 0) {
-            str += "-> [" + element!!.data.toString() + "] "
-            element = element.next
-            i--
-        }
+        this.forEach { data -> str += "-> [" + data.toString() + "] " }
         str += "\n"
         print(str)
+    }
+
+    /**
+     * 迭代器
+     */
+    override fun iterator(): Iterator<E> {
+        return object : Iterator<E> {
+            var current = head
+
+            override fun hasNext(): Boolean {
+                return current!!.next != head
+            }
+
+            override fun next(): E {
+                val data = current!!.data!!
+                current = current!!.next
+                return data
+            }
+
+        }
     }
 
 }

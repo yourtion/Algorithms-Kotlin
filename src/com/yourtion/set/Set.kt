@@ -29,20 +29,12 @@ class Set<E> : List<E>() {
      * @param data 数据
      */
     fun remove(data: E): Boolean {
-        var member = head
-        var prev: ListElmt<E>? = null
-        while (member != null) {
-            if (member.data == data) {
-                break
-            }
-            prev = member
-            member = member.next
+        val this_it = this.iterator()
+        for (member in this_it) if (member == data) {
+            this_it.remove()
+            return true
         }
-
-        if (member == null) return false
-
-        super.remove_next(prev)
-        return true
+        return false
     }
 
     /**
@@ -51,15 +43,7 @@ class Set<E> : List<E>() {
      * @param data 数据
      */
     fun is_member(data: E): Boolean {
-        var member = head
-        while (member != null) {
-            if (member.data == data) {
-                return true
-            }
-            member = member.next
-        }
-
-        return false
+        return this.contains(data)
     }
 
     /**
@@ -69,15 +53,7 @@ class Set<E> : List<E>() {
      */
     fun is_subset(set: Set<E>): Boolean {
         if (size > set.size) return false
-
-        var member = head
-        while (member != null) {
-            if (!set.is_member(member.data)) {
-                return false
-            }
-            member = member.next
-        }
-        return true
+        return this.all { set.is_member(it) }
     }
 
     /**
@@ -98,19 +74,9 @@ class Set<E> : List<E>() {
     fun union(set: Set<E>): Set<E> {
         val setu = Set<E>()
 
-        var member = head
-        while (member != null) {
-            setu.insert_next(member.data, setu.tail)
-            member = member.next
-        }
+        this.forEach { member -> setu.insert_next(member, setu.tail) }
 
-        member = set.head
-        while (member != null) {
-            if (!setu.is_member(member.data)) {
-                setu.insert_next(member.data, setu.tail)
-            }
-            member = member.next
-        }
+        set.filterNot { setu.is_member(it) }.forEach { setu.insert_next(it, setu.tail) }
 
         return setu
     }
@@ -122,15 +88,7 @@ class Set<E> : List<E>() {
      */
     fun intersection(set: Set<E>): Set<E> {
         val seti = Set<E>()
-
-        var member = head
-        while (member != null) {
-            if (set.is_member(member.data)) {
-                seti.insert_next(member.data, seti.tail)
-            }
-            member = member.next
-        }
-
+        this.filter { set.is_member(it) }.forEach { seti.insert_next(it, seti.tail) }
         return seti
     }
 
@@ -141,15 +99,7 @@ class Set<E> : List<E>() {
      */
     fun difference(set: Set<E>): Set<E> {
         val setd = Set<E>()
-
-        var member = head
-        while (member != null) {
-            if (!set.is_member(member.data)) {
-                setd.insert_next(member.data, setd.tail)
-            }
-            member = member.next
-        }
-
+        this.filterNot { set.is_member(it) }.forEach { setd.insert_next(it, setd.tail) }
         return setd
     }
 }

@@ -9,7 +9,7 @@ package com.yourtion.list
 /**
  * 链表
  */
-open class List<E> : Iterable<E> {
+open class List<E> : MutableIterable<E> {
 
     /**
      * 链表元素
@@ -121,18 +121,34 @@ open class List<E> : Iterable<E> {
     /**
      * 迭代器
      */
-    override fun iterator(): Iterator<E> {
-        return object : Iterator<E> {
-            var current = head
+    override fun iterator(): MutableIterator<E> {
+        return object : MutableIterator<E> {
+
+            private var current = head
+            private var prev: ListElmt<E>? = null
+            private var mod = false
 
             override fun hasNext(): Boolean {
                 return current != null
             }
 
             override fun next(): E {
+                if (!mod) {
+                    if (current != head && prev == null) {
+                        prev = head
+                    } else if (prev != null) {
+                        prev = prev!!.next
+                    }
+                }
+                mod = false
                 val data = current!!.data!!
                 current = current!!.next
                 return data
+            }
+
+            override fun remove() {
+                mod = true
+                remove_next(prev)
             }
 
         }

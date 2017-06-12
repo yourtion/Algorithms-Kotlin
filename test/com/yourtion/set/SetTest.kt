@@ -22,9 +22,19 @@ class SetTest {
         set.insert("a")
         set.insert("b")
         set.insert("c")
-        assertEquals(set.size, 3)
+        set.insert("d")
+        assertEquals(set.size, 4)
         assertTrue(set.remove("a"))
-        assertFalse(set.remove("d"))
+        set.print()
+        assertEquals(set.size, 3)
+        assertFalse(set.remove("a"))
+        set.print()
+        assertEquals(set.size, 3)
+        assertTrue(set.remove("c"))
+        set.print()
+        assertEquals(set.size, 2)
+        assertFalse(set.remove("e"))
+        set.print()
     }
 
     @Test

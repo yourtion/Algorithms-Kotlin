@@ -53,16 +53,34 @@ internal class ListTest {
         assertTrue(list.is_tail(b))
     }
 
+    fun <E> verify(list: List<E>, res: Array<E>) {
+        for ((index, data) in list.withIndex()) {
+            assertEquals(data, res[index])
+        }
+    }
+
     @Test
     fun iterator() {
         val list = List<Int>()
         for (i in IntRange(1, 10).reversed()) {
             list.insert_next(i)
         }
+        assertEquals(list.size, 10)
         for ((index, data) in list.withIndex()) {
             assertEquals(index + 1, data)
         }
+        assertEquals(list.size, 10)
         list.forEachIndexed({ index, data -> assertEquals(index + 1, data) })
+        list.print()
+        val list_it = list.iterator()
+        for (item in list_it) {
+            if (item % 3 == 0) list_it.remove()
+        }
+        list.print()
+        assertEquals(list.size, 7)
+        verify(list, arrayOf(1, 2, 4, 5, 7, 8, 10))
+        list.removeAll { true }
+        assertEquals(list.size, 0)
     }
 
     @Test

@@ -30,24 +30,13 @@ class Graph<E> {
     val adjlists = List<AdjList<E>>()
 
     /**
-     * 匹配节点元素
-     */
-    private fun match(element: List.ListElmt<AdjList<E>>, data: E): Boolean {
-        return element.data.vertex == data
-    }
-
-    /**
      * 将顶点 [data] 插入图中
      */
     fun insert_vertex(data: E): Boolean {
-        var element = adjlists.head
-        while (element != null) {
-            if (match(element, data)) return false
-            element = element.next
-        }
-
-        val adjlist = AdjList(data)
-        adjlists.insert_next(adjlist, adjlists.tail)
+        adjlists
+                .filter { it.vertex == data }
+                .forEach { return false }
+        adjlists.insert_next(AdjList(data), adjlists.tail)
         vcount++
         return true
     }
@@ -56,19 +45,17 @@ class Graph<E> {
      * 将由 [data1] 以及 [data2] 所指定的顶点构成的边插入图中
      */
     fun insert_edge(data1: E, data2: E): Boolean {
-        var element = adjlists.head
         var count = 0
-        var node: List.ListElmt<AdjList<E>>? = null
-        while (element != null) {
-            if (match(element, data1)) {
-                node = element
+        var node: AdjList<E>? = null
+        for (item in adjlists) {
+            if (item.vertex == data1) {
+                node = item
                 count++
             }
-            if (match(element, data2)) count++
-            element = element.next
+            if (item.vertex == data2) count++
         }
         if (count != 2 || node == null) return false
-        node.data.adjacent.insert(data2)
+        node.adjacent.insert(data2)
         ecount++
         return true
     }
@@ -77,35 +64,25 @@ class Graph<E> {
      * 从图中移除与 [data] 相匹配的顶点
      */
     fun remove_vertex(data: E): Boolean {
-        var element = adjlists.head
-        var prev: List.ListElmt<AdjList<E>>? = null
-        var found = false
-        while (element != null) {
-            if (element.data.adjacent.is_member(data)) return false
-            if (match(element, data)) {
-                if (element.data.adjacent.size > 0) return false
-                found = true
+        val adjlists_it = adjlists.iterator()
+        for (item in adjlists_it) {
+            if (item.adjacent.is_member(data)) return false
+            if (item.vertex == data) {
+                if (item.adjacent.size > 0) return false
+                adjlists_it.remove()
+                vcount--
+                return true
             }
-            if (!found) prev = element
-            element = element.next
         }
-        if (!found) return false
-        adjlists.remove_next(prev)
-        vcount--
-        return true
+        return false
     }
 
     /**
      * 从图中移除从 [data1] 到 [data2] 的边
      */
     fun remove_edge(data1: E, data2: E): Boolean {
-        var element = adjlists.head
-        while (element != null) {
-            if (match(element, data1)) break
-            element = element.next
-        }
-        if (element == null) return false
-        val ret = element.data.adjacent.remove(data2)
+        val element = adjlists.firstOrNull { it.vertex == data1 } ?: return false
+        val ret = element.adjacent.remove(data2)
         if (ret) ecount--
         return ret
     }
@@ -114,25 +91,16 @@ class Graph<E> {
      * 取出图中由 [data] 所指定的顶点的邻接表
      */
     fun get_adjlist(data: E): AdjList<E>? {
-        var element = adjlists.head
-        while (element != null) {
-            if (match(element, data)) return element.data
-            element = element.next
-        }
-        return null
+        return adjlists.firstOrNull { it.vertex == data }
     }
 
     /**
      * 判断由 [data2] 所指定的顶点是否与图中由 [data1] 所指定的顶点邻接
      */
     fun is_adjacent(data1: E, data2: E): Boolean {
-        var element = adjlists.head
-        while (element != null) {
-            if (match(element, data1)) {
-                return element.data.adjacent.is_member(data2)
-            }
-            element = element.next
-        }
-        return false
+        return adjlists
+                .firstOrNull { it.vertex == data1 }
+                ?.let { it.adjacent.is_member(data2) }
+                ?: false
     }
 }

@@ -28,7 +28,7 @@ class AVLTreeTest {
         a22.right = a43
         a15.left = x
 
-        val a = AVLTree(compare_string).rotate_left(a0)
+        val a = AVLTree(Comparator(compare_string)).rotate_left(a0)
         assertEquals(a.data, "22")
         assertEquals(a.left!!.data, "15")
         assertEquals(a.right!!.data, "A")
@@ -52,7 +52,7 @@ class AVLTreeTest {
         a22.right = a43
         a43.left = x
 
-        val a = AVLTree(compare_string).rotate_left_right(a0)
+        val a = AVLTree(Comparator(compare_string)).rotate_left_right(a0)
         assertEquals(a.data, "43")
         assertEquals(a.left!!.data, "22")
         assertEquals(a.right!!.data, "A")
@@ -70,7 +70,7 @@ class AVLTreeTest {
     }
 
     fun build_tree(): AVLTree<Int> {
-        val tree = AVLTree<Int>(compare_int)
+        val tree = AVLTree<Int>(Comparator(compare_int))
         tree.insert(9)
         tree.insert(8)
         tree.insert(3)
@@ -133,7 +133,7 @@ class AVLTreeTest {
 
     @Test
     fun example() {
-        val tree = AVLTree(compare_string)
+        val tree = AVLTree(Comparator(compare_string))
         println("Inserting some nodes")
         tree.insert("tap")
         tree.insert("tip")

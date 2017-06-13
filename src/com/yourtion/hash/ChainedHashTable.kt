@@ -38,18 +38,12 @@ class ChainedHashTable<E> constructor(buckets: Int, hash: (E) -> Int) {
      */
     fun remove(data: E): Boolean {
         val bk = hash(data) % buckets
-        var element = table[bk].head
-        var prev: List.ListElmt<E>? = null
-        while (element != null) {
-            if (element.data == data) {
-                table[bk].remove_next(prev)
-                size--
-                return true
-            }
-            prev = element
-            element = element.next
+        val table_it = table[bk].iterator()
+        for (element in table_it) if (element == data) {
+            table_it.remove()
+            size--
+            return true
         }
-
         return false
     }
 
@@ -58,14 +52,7 @@ class ChainedHashTable<E> constructor(buckets: Int, hash: (E) -> Int) {
      */
     fun lookup(data: E): Boolean {
         val bk = hash(data) % buckets
-        var element = table[bk].head
-        while (element != null) {
-            if (element.data == data) {
-                return true
-            }
-            element = element.next
-        }
-        return false
+        return table[bk].contains(data)
     }
 
     fun print() {
@@ -73,12 +60,8 @@ class ChainedHashTable<E> constructor(buckets: Int, hash: (E) -> Int) {
         var str = "-> $this size: $size \n"
         for (i in IntRange(0, buckets - 1)) {
             val bucket = table[i]
-            var element = bucket.head
             str += "--> Bucket[$i] = "
-            while (element != null) {
-                str += element.data.toString() + " "
-                element = element.next
-            }
+            bucket.forEach { element -> str += element.toString() + " " }
             str += "\n"
         }
         print(str)

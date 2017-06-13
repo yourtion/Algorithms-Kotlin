@@ -13,11 +13,11 @@ class CList<E> : Iterable<E> {
     /**
      * 循环链表元素
      */
-    data class ListElmt<E>(val data: E, var next: ListElmt<E>? = null)
+    data class CListElmt<E>(val data: E, var next: CListElmt<E>? = null)
 
     var size = 0
         private set
-    var head: ListElmt<E>? = null
+    var head: CListElmt<E>? = null
         private set
 
     /**
@@ -28,10 +28,10 @@ class CList<E> : Iterable<E> {
      *
      * @return 新插入元素
      */
-    fun insert_next(data: E, element: ListElmt<E>? = null): ListElmt<E>? {
+    fun insert_next(data: E, element: CListElmt<E>? = null): CListElmt<E>? {
         if (element == null && size != 0) return null
 
-        val new_element = ListElmt(data)
+        val new_element = CListElmt(data)
 
         if (size == 0) {
             // 处理插入空循环链表
@@ -55,7 +55,7 @@ class CList<E> : Iterable<E> {
      *
      * @return 被删除元素
      */
-    fun remove_next(element: ListElmt<E>): ListElmt<E>? {
+    fun remove_next(element: CListElmt<E>): CListElmt<E>? {
         // 禁止删除空链表的数据
         if (size == 0) return null
 
@@ -82,7 +82,7 @@ class CList<E> : Iterable<E> {
     /**
      * 判断元素 [element] 是否为头节点
      */
-    fun is_head(element: ListElmt<E>): Boolean {
+    fun is_head(element: CListElmt<E>): Boolean {
         return element === head
     }
 

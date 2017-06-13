@@ -8,9 +8,9 @@ package com.yourtion.heap
 /**
  * 堆
  */
-open class Heap<E> constructor(compare: (E, E) -> Int) {
+open class Heap<E> constructor(comparator: Comparator<E>) {
 
-    private val compare: (E, E) -> Int = compare
+    private val c: Comparator<E> = comparator
     private var tree: MutableList<E> = mutableListOf()
     val size: Int
         get() = tree.size
@@ -45,7 +45,7 @@ open class Heap<E> constructor(compare: (E, E) -> Int) {
         tree.add(element = data)
 
         // 通过将节点上推保障树的平衡
-        while (ipos > 0 && compare(tree[ppos], tree[ipos]) < 0) {
+        while (ipos > 0 && c.compare(tree[ppos], tree[ipos]) < 0) {
             tree.swap(ppos, ipos)
             ipos = ppos
             ppos = parent(ipos)
@@ -71,13 +71,13 @@ open class Heap<E> constructor(compare: (E, E) -> Int) {
             lpos = left(ipos)
             rpos = right(ipos)
 
-            if (lpos < size && compare(tree[lpos], tree[ipos]) > 0) {
+            if (lpos < size && c.compare(tree[lpos], tree[ipos]) > 0) {
                 mpos = lpos
             } else {
                 mpos = ipos
             }
 
-            if (rpos < size && compare(tree[rpos], tree[mpos]) > 0) {
+            if (rpos < size && c.compare(tree[rpos], tree[mpos]) > 0) {
                 mpos = rpos
             }
 

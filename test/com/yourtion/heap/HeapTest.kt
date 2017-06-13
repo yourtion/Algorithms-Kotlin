@@ -13,7 +13,7 @@ class HeapTest {
 
     @Test
     fun insert() {
-        val heap = Heap<Int>(compare_int)
+        val heap = Heap<Int>(Comparator(compare_int))
         for (i in IntRange(0, 9)) {
             heap.insert(i)
             assertEquals(heap.size, i + 1)
@@ -26,7 +26,7 @@ class HeapTest {
 
     @Test
     fun extract() {
-        val heap = Heap<Int>(compare_int)
+        val heap = Heap<Int>(Comparator(compare_int))
         for (i in IntRange(0, 9)) {
             heap.insert(i)
             assertEquals(heap.size, i + 1)
@@ -40,7 +40,7 @@ class HeapTest {
 
     @Test
     fun example() {
-        val heap = Heap<Int>(compare_int)
+        val heap = Heap<Int>(Comparator(compare_int))
         heap.insert(5)
         heap.insert(10)
         heap.insert(20)

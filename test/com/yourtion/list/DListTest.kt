@@ -1,5 +1,6 @@
 package com.yourtion.list
 
+import com.yourtion.utils.verify
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -61,12 +62,6 @@ class DListTest {
         assertTrue(list.is_tail(a!!))
         val b = list.insert_next("b", a)
         assertTrue(list.is_tail(b!!))
-    }
-
-    fun <E> verify(list: DList<E>, res: Array<E>) {
-        for ((index, data) in list.withIndex()) {
-            assertEquals(data, res[index])
-        }
     }
 
     @Test

@@ -1,6 +1,8 @@
 package com.yourtion.tree
 
-import com.yourtion.list.List
+import com.yourtion.utils.compare_int
+import com.yourtion.utils.compare_string
+import com.yourtion.utils.verify
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -9,9 +11,6 @@ import org.junit.Test
  * Created by Yourtion on 06/06/2017.
  */
 class AVLTreeTest {
-
-    val compare_int = { data1: Int, data2: Int -> data1 - data2 }
-    val compare_string = { data1: String, data2: String -> data1.compareTo(data2) }
 
     @Test
     fun rotate_left() {
@@ -59,14 +58,6 @@ class AVLTreeTest {
         assertEquals(a.left!!.left!!.data, "15")
         assertEquals(a.left!!.right!!.data, "X")
         assertEquals(a.right!!.right!!.data, "75")
-    }
-
-    fun verify(list: List<Int>, order: Array<Int>) {
-        var element = list.head
-        for (i in IntRange(0, list.size - 1)) {
-            assertEquals(element!!.data, order[i])
-            element = element.next
-        }
     }
 
     fun build_tree(): AVLTree<Int> {
@@ -121,14 +112,6 @@ class AVLTreeTest {
         assertFalse(tree.lookup(-1))
         tree.remove(0)
         assertFalse(tree.lookup(0))
-    }
-
-    fun verify(list: List<String>, order: Array<String>) {
-        var element = list.head
-        for (i in IntRange(0, list.size - 1)) {
-            assertEquals(element!!.data, order[i])
-            element = element.next
-        }
     }
 
     @Test

@@ -1,6 +1,6 @@
 package com.yourtion.tree
 
-import com.yourtion.list.List
+import com.yourtion.utils.verify
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -19,14 +19,6 @@ class TraverseTest {
         tree.insert_left("D1", b2)
         tree.insert_right("D2", b2)
         return tree
-    }
-
-    fun verify(list:List<String>, order: Array<String>) {
-        var element = list.head
-        for (i in IntRange(0, list.size - 1)) {
-            assertEquals(element!!.data, order[i])
-            element = element.next
-        }
     }
 
     @Test

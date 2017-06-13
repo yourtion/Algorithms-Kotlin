@@ -1,7 +1,7 @@
 package com.yourtion.tree
 
-import com.yourtion.list.List
 import com.yourtion.tree.TraverseOrder.*
+import com.yourtion.utils.verify
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -102,14 +102,6 @@ class BinaryTreeTest {
         assertEquals(tree.root!!.right!!.data, "a1")
         assertEquals(tree.root!!.left!!.left, b1)
         assertEquals(tree.root!!.right!!.right, b2)
-    }
-
-    fun verify(list: List<Int>, order: Array<Int>) {
-        var element = list.head
-        for (i in IntRange(0, list.size - 1)) {
-            assertEquals(element!!.data, order[i])
-            element = element.next
-        }
     }
 
     fun BinaryTree<Int>.insert_int(i: Int) {

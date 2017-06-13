@@ -18,10 +18,10 @@ class AVLTree<E> : BinaryTree<E> {
             var height: Int = 0
     ) : BinaryTreeNode<E>(data)
 
-    private val compare: (E, E) -> Int
+    private val c: Comparator<E>
 
-    constructor(compare: (E, E) -> Int) {
-        this.compare = compare
+    constructor(comparator: Comparator<E>) {
+        this.c = comparator
     }
 
     /**
@@ -99,7 +99,7 @@ class AVLTree<E> : BinaryTree<E> {
     internal fun _insert(data: E, node: BinaryTreeNode<E>? = null): AvlNode<E> {
         if (node == null) return AvlNode(data)
 
-        val cmpval = compare(data, node.data)
+        val cmpval = c.compare(data, node.data)
         if (cmpval < 0) {
             node.left = _insert(data, node.left)
         } else if (cmpval > 0) {
@@ -115,7 +115,7 @@ class AVLTree<E> : BinaryTree<E> {
     internal fun _remove(data: E, node: BinaryTreeNode<E>? = null): AvlNode<E>? {
         if (node == null) return null
 
-        val cmpval = compare(data, node.data)
+        val cmpval = c.compare(data, node.data)
         if (cmpval < 0) {
             node.left = _remove(data, node.left)
         } else if (cmpval > 0) {
@@ -143,7 +143,7 @@ class AVLTree<E> : BinaryTree<E> {
 
         var ret: AvlNode<E>? = node as AvlNode
 
-        val cmpval = compare(data, node.data)
+        val cmpval = c.compare(data, node.data)
         if (cmpval < 0) {
             ret = _lookup(data, node.left)
         } else if (cmpval > 0) {
